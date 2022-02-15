@@ -45,7 +45,7 @@ function processData(data){
 //function to retrieve the data and place it on the map
 function getData(mymap){
     //load the data
-    $.ajax("data/wa_boundary.geojson", {
+    $.ajax("data/wa_boundary.json", {
         dataType: "json",
         success: function(response){
 	    //create an attributes array
