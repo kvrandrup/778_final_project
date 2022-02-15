@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Randrup 778</title>
+	<header>Green Space and Population Demographics in King County</header>
+
+	<!--put your external stylesheet links here-->
+	<!-- <link rel="stylesheet" href="lib/leaflet.css"> -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin=""/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" href="./css/d3Style.css"></link>
+
+	<!--JS links-->
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script> 
+	<!-- <script type="text/javascript" src="js/geojson.js"></script> -->
+</head>
+
+<body>
+	<div id="panel">
+		<div class="row" id="CensusOverlayRow">
+                    <h1>King County Census Tracts</h1>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="elRadio">
+                        <label class="form-check-label" for="elRadio">
+                            Population Density
+                        </label>
+                    </div>
+		    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="elRadio">
+                        <label class="form-check-label" for="elRadio">
+                            Median Income
+                        </label>
+                    </div>
+		    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="elRadio">
+                        <label class="form-check-label" for="elRadio">
+                            Percent Non-White
+                        </label>
+                    </div>
+		    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="elRadio">
+                        <label class="form-check-label" for="elRadio">
+                           No Data
+                        </label>
+                    </div>
+		</div>
+		<div class="row" id="ParkOverlayRow">
+                    <h1>King County Parks and Trails</h1>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="elRadio">
+                        <label class="form-check-label" for="elRadio">
+                            Parks
+                        </label>
+                    </div>
+		    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="elRadio">
+                        <label class="form-check-label" for="elRadio">
+                           Trails
+                        </label>
+                    </div>
+		</div>
+		<div class="emptyDivClass"></div>
+		<button id="MybtnModal" class="mainbutton" data-toggle="modal">Project Background and Intention</button>
+		<!--MODAL -->
+		<div class="modal fade" id="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button> 
+					<h2 class="modal-title">Background and Intention</h2>                                                             
+				</div> 
+				<div class="modal-body">
+					With this project, I hope to highlight the disparity in access to green space and
+					parks within King County as it related to population demographics. I hope for this
+					project to be informative to outdoor enthusiasts and city planners within King
+					County. Select between Census Tract options to view different demographic breakdowns
+					and turn on or off park areas and trails with the buttons below.
+				</div>   
+				<div class="modal-footer">
+					<button type="close" class="close" data-dismiss="modal">Close</button>                               
+				</div>
+			</div>                                                                       
+		</div>                                      
+	</div>
+		</div>
+	</div>
+	<div id="mapid"></div>
+</body>
+</html>
