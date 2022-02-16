@@ -41,7 +41,7 @@ function getWAData(mymap){
 	//create a Leaflet GeoJSON layer and add it to map
 	L.geoJson(response).addTo(mymap);
 	}	
-    };
+    });
 }
 
 $(document).ready(() => {
