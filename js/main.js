@@ -27,7 +27,7 @@ function createMap(){
     getWAData(mymap);
 };
 
-funtion parkStyle(feature) {
+funtion parkStyle(feature){
     return {
 	fillColor: #98FB98
 	color: #006400
@@ -36,7 +36,7 @@ funtion parkStyle(feature) {
 }
 
 //load GeoJSON file
-function getWAData(mymap) {
+function getWAData(mymap){
     $.ajax("data/wa_boundary.geojson" {
 	dataType: "json", 
 	success: function(response){
