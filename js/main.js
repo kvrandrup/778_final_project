@@ -29,7 +29,7 @@ function createMap(){
 
 //load GeoJSON file
 function getWAData(mymap){
-    $.ajax("data/wa_boundary.geojson" {
+    $.ajax("data/wa_boundary.geojson", {
 	dataType: "json", 
 	success: function(response){
 	    //create boundary options
