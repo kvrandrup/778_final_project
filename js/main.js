@@ -54,8 +54,18 @@ funtion parkStyle(feature) {
 
 //load GeoJSON file
 function getWAData(mymap) {
-    $.getJSON("data/wa_boundary.geojson", function(data) {
-	L.geoJson(data).addTo(mymap);
+    $.ajax("data/wa_boundary.geojson" {
+	dataType: "json", 
+	success: function(response){
+	    //create boundary options
+	    var wamarkeroptions = {
+		fillColor: #0000ffff, 
+		color: #000000, 
+		fillOpacity: 0,
+	    }    
+	//create a Leaflet GeoJSON layer and add it to map
+	L.geoJson(response).addTo(mymap);
+	}	
     };
 }
 
