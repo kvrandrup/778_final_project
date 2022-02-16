@@ -34,8 +34,8 @@ function getWAData(mymap){
 	success: function(response){
 	    //create boundary options
 	    var wamarkeroptions = {
-		fillColor: #ffffff,
-		color: #000000, 
+		fillColor: "#ffffff",
+		color: "#000000", 
 		fillOpacity: 0,
 	    }    
 	//create a Leaflet GeoJSON layer and add it to map
