@@ -59,7 +59,7 @@ function getWAData(mymap) {
 	success: function(response){
 	    //create boundary options
 	    var wamarkeroptions = {
-		fillColor: #0000ffff, 
+		fillColor: #0000ffff,
 		color: #000000, 
 		fillOpacity: 0,
 	    }    
