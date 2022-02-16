@@ -30,7 +30,7 @@ function createMap(){
 //define layer styles for each static feature
 function waStyle(feature) {
     return {
-	fillColor: #0000ffff, 
+	fillColor: #0000ffff,
 	color: #000000, 
 	fillOpacity: 0, 
     };
@@ -38,7 +38,7 @@ function waStyle(feature) {
 
 function kingStyle(feature) {
     return {
-	fillColor: #0000ffff, 
+	fillColor: #0000ffff,
 	color: #000000, 
 	fillOpacity: 0,
     };
