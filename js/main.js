@@ -1,4 +1,11 @@
-/*WA cities data and map*/
+/*778 Final Project*/
+
+//universal variables
+var wa_boundary;
+var king_boundary;
+var all_parks;
+var all_trails;
+var tracts;
 
 //function to initialize the Leaflet map
 function createMap(){
@@ -17,48 +24,40 @@ function createMap(){
     }).addTo(mymap);
 
     //call getData function
-    getData(mymap);
+    getWAData(mymap);
 };
 
-function processData(data){
-    //empty array to hold attributes
-    var attributes = [];
-
-    //properties of the first feature in the dataset
-    var properties = data.features[0].properties;
-
-    //push each attribute name into attributes array
-    for (var attribute in properties){
-        //only take attributes with population values
-        if (attribute.indexOf("pop") > -1){
-            attributes.push(attribute);
-        };
+//define layer styles for each static feature
+function waStyle(feature) {
+    return {
+	fillColor: #0000ffff, 
+	color: #000000, 
+	fillOpacity: 0, 
     };
+}
 
-    //check result
-    console.log(attributes);
+function kingStyle(feature) {
+    return {
+	fillColor: #0000ffff, 
+	color: #000000, 
+	fillOpacity: 0,
+    };
+}
 
-    return attributes;
-};
+funtion parkStyle(feature) {
+    return {
+	fillColor: #98FB98
+	color: #006400
+	fillOpacity: 0.33,
+    };
+}
 
-
-//function to retrieve the data and place it on the map
-function getData(mymap){
-    //load the data
-    $.ajax("data/wa_boundary.json", {
-        dataType: "json",
-        success: function(response){
-	    //create an attributes array
-	    //var attributes = processData(response);
-
-	    //call function to add map add-ons
-            //createPropSymbols(response, mymap, attributes);
-	    //createSequenceControls(mymap, attributes);
-	    //createLegend(mymap, attributes);
-        }
-    });
-};
-
+//load GeoJSON file
+function getWAData(mymap) {
+    $.getJSON("data/wa_boundary.geojson", function(data) {
+	L.geoJson(data).addTo(mymap);
+    };
+}
 
 $(document).ready(() => {
     $('#MybtnModal').click(function(){
