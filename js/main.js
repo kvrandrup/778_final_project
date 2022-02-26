@@ -1,7 +1,6 @@
 /*778 Final Project*/
 
 //universal variables
-var wa_boundary;
 var king_boundary;
 var all_parks;
 var all_trails;
@@ -28,21 +27,18 @@ function createMap(){
 };
 
 //load GeoJSON file
-function getWAData(mymap){
-    $.ajax("data/wa_boundary.geojson", {
-	dataType: "json", 
-	success: function(response){
-	    //create boundary options
-	    var wamarkeroptions = {
-		fillColor: "#ffffff",
-		color: "#000000", 
-		fillOpacity: 0,
-	    }    
-	//create a Leaflet GeoJSON layer and add it to map
-	L.geoJson(response).addTo(mymap);
-	}	
+var wa_boundary = new L.geoJson();
+wa_boundary.addTo(mymap);
+
+$.ajax({
+dataType: "json",
+url: "data/wa_boundary.geojson",
+success: function(data) {
+    $(data.features).each(function(key, data) {
+        wa_boundary.addData(data);
     });
 }
+}).error(function() {});
 
 $(document).ready(() => {
     $('#MybtnModal').click(function(){
