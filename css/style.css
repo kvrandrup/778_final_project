@@ -26,9 +26,68 @@ h2 {
     font-family: Calibri;
 }
 
+.modal-content {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3rem;
+    outline: 0;
+}
+.modal {
+    position: absolute;
+    top: 10%;
+    left: 17%;
+    z-index: 1050;
+    display: none;
+    width: 40%;
+    overflow: hidden;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.modal-header {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: calc(.3rem - 1px);
+    border-top-right-radius: calc(.3rem - 1px);
+}
+.modal-title {
+    margin: 0;
+    line-height: 1.5;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+.modal-header button {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 .modal-body {
-    font-size: 12px;
+    padding: 1rem;
+    font-size: 15px;
     font-family: Calibri;
+}
+.modal-body h1 {
+    margin-top: 0;
+    padding: 1rem;
+    font-size: 15px;
+    font-family: Calibri;
+    font-weight: normal;
 }
 
 .mainbutton {
@@ -83,45 +142,4 @@ h2 {
     font-family: sans-serif;
     font-size: 1.5em;
     font-weight: bold;
-}
-
-//for the whole modal component
-.modal {
-	position: fixed;
-	z-index: 9999;
-	padding: 50px 0 50px 0;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, .4);
-	visibilty: hidden;
-}
-//for the content inside the modal 
-.modal-content {
-	width: 50%;
-  	border: none;
-  	background-color: #fbfdfe;
-	margin: auto;
-	padding: 15px;
-	border-radius: 10px;
-	overflow: hidden;
-	text-align: center;
-	box-shadow: 1px 1px 14px 3px rgba(0,0,0,0.75);	
-}
-//for the close (X)
-.close {
-	color: lightgray;
-	float: right;
-	font-size: 10px;
-	font-weight: 700
-	font-family: Calibri;
-}
-//when we hover on the close (X)
-.close:focus,
-.close:hover {
-	color: darkgray;
-	text-decoration: none;
-	cursor: pointer
 }
