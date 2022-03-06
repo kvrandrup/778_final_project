@@ -24,7 +24,12 @@ function createMap(){
     }).addTo(mymap);
 
     //add WA data to map
-    L.geoJson(WAdata, {style: WAstyle}).addTo(mymap);
+    $.ajax("data/wa_boundary.geojson", {
+	  dataType: "json", 
+	  success: function(response) {
+		wa_layer = L.geoJson(WAdata, {style: WAstyle}).addTo(mymap);
+	  }
+    });
 };
 
 function WAstyle(feature) {
