@@ -22,21 +22,32 @@ function createMap(){
     }).addTo(mymap);
 
     //add WA boundary to map
+    WAgetData(mymap);
+
+    //add King County boundary to map
+    KinggetData(mymap);
+};
+
+
+//function to get WA boundary and place it on the map
+function WAgetData(maymap){
     $.ajax("data/wa_boundary.geojson", {
 	  dataType: "json", 
 	  success: function(response) {
-		wa_layer = L.geoJson(response, {style: WAstyle}).addTo(mymap);
+		L.geoJson(response, {style: WAstyle}).addTo(mymap);
 	  }
     });
+}
 
-    //add King County boundary to map
+//function to get King County boundary and place it on the map
+function KinggetData(maymap){
     $.ajax("data/king_county.geojson", {
 	  dataType: "json", 
 	  success: function(response) {
-		king_layer = L.geoJson(response, {style: Kingstyle}).addTo(mymap);
+		L.geoJson(response, {style: Kingstyle}).addTo(mymap);
 	  }
     });
-};
+}
 
 function WAstyle(feature) {
     return {
