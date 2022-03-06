@@ -17,32 +17,56 @@ function createMap(){
     }).addTo(mymap);
 
     //add WA boundary to map
-    L.geoJson(wa_boundary).addTo(mymap);
+    //L.geoJson(wa_boundary).addTo(mymap);
 
-    //add King County boundary to map
-    //KinggetData(mymap);
+    getParkData(mymap);
+
 };
 
 
-//function to get WA boundary and place it on the map
-function WAgetData(maymap){
-    $.ajax("data/wa_boundary.geojson", {
-	  dataType: "json", 
-	  success: function(response) {
-		L.geoJson(response, {style: WAstyle}).addTo(mymap);
-	  }
-   });
-}
+function processParkData(data){
+    //empty array to hold attributes
+    var attributes = [];
 
-//function to get King County boundary and place it on the map
-function KinggetData(maymap){
-    $.ajax("data/king_county.geojson", {
-	  dataType: "json", 
-	  success: function(response) {
-		L.geoJson(response, {style: Kingstyle}).addTo(mymap);
-	  }
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+//Add markers for point features to the map
+function createParkSymbols(data, mymap, attributes){
+    //create a Leaflet GeoJSON layer and add it to the map
+    L.geoJson(data, {
+        style: parkstyle;
+        }
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getParkData(mymap){
+    //load the data
+    $.ajax("data/all_parks.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processParkData(response);
+
+	    //call function to add map add-ons
+          createParkSymbols(response, mymap, attributes);
+        }
     });
-}
+};
+
 
 function WAstyle(feature) {
     return {
