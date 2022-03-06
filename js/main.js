@@ -20,10 +20,11 @@ function createMap(){
     //L.geoJson(wa_boundary).addTo(mymap);
 
     getParkData(mymap);
+    getTrailData(mymap);
 
 };
 
-
+//KING COUNTY PARK DATA FUNCTIONS
 function processParkData(data){
     //empty array to hold attributes
     var attributes = [];
@@ -43,7 +44,6 @@ function processParkData(data){
     return attributes;
 };
 
-//KING COUNTY PARK DATA FUNCTIONS
 //Add markers for features to the map
 function createParkSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
@@ -68,6 +68,25 @@ function getParkData(mymap){
 };
 
 //KING COUNTY TRAIL DATA FUNCTIONS
+function processTrailData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
 //Add markers for features to the map
 function createTrailSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
