@@ -30,11 +30,40 @@ function createMap(){
 function WAstyle(feature) {
     return {
         fillColor: #98FB98,
-        weight: 2,
+        weight: 1,
+        opacity: 1,
+        color: #000000,
+        //dashArray: '3',
+        fillOpacity: 0
+    };
+}
+
+function Kingstyle(feature) {
+    return {
+        fillColor: #98FB98,
+        weight: 1,
+        opacity: 1,
+        color: #000000,
+        //dashArray: '3',
+        fillOpacity: 0
+    };
+}
+
+function parkstyle(feature) {
+    return {
+        fillColor: #98FB98,
+        weight: .2,
         opacity: 1,
         color: #006400,
         //dashArray: '3',
-        fillOpacity: 0.3
+        fillOpacity: 0.4
+    };
+}
+
+function trailstyle(feature) {
+    return {
+        color: #8b4513, 
+	  width: 1
     };
 }
 
