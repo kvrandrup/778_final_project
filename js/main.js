@@ -1,6 +1,7 @@
 /*778 Final Project*/
 
 //universal variables
+var WAdata = "data/wa_boundary.geojson"
 var king_boundary;
 var all_parks;
 var all_trails;
@@ -22,23 +23,20 @@ function createMap(){
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
     }).addTo(mymap);
 
-    //call getData function
-    getWAData(mymap);
+    //add WA data to map
+    L.geoJson(WAdata, {style: style}).addTo(mymap);
 };
 
-//load GeoJSON file
-var wa_boundary = new L.geoJson();
-wa_boundary.addTo(mymap);
-
-$.ajax({
-dataType: "json",
-url: "data/wa_boundary.geojson",
-success: function(data) {
-    $(data.features).each(function(key, data) {
-        wa_boundary.addData(data);
-    });
+function WAstyle(feature) {
+    return {
+        fillColor: #98FB98,
+        weight: 2,
+        opacity: 1,
+        color: #006400,
+        //dashArray: '3',
+        fillOpacity: 0.3
+    };
 }
-}).error(function() {});
 
 $(document).ready(() => {
     $('#MybtnModal').click(function(){
