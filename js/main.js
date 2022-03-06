@@ -25,7 +25,7 @@ function createMap(){
     $.ajax("data/wa_boundary.geojson", {
 	  dataType: "json", 
 	  success: function(response) {
-		L.geoJson(response, {style: WAstyle}).addTo(mymap);
+		wa_layer = L.geoJson(response, {style: WAstyle}).addTo(mymap);
 	  }
     });
 
