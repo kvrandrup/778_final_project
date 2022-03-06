@@ -5,7 +5,7 @@ function createMap(){
     //create the map
     var mymap = L.map('mapid', {
         center: [47.508761, -121.883762],
-        zoom: 9.25
+        zoom: 9.5
     });
 
     //add base tilelayer -- grey basemap, grey reference map
@@ -43,7 +43,8 @@ function processParkData(data){
     return attributes;
 };
 
-//Add markers for point features to the map
+//KING COUNTY PARK DATA FUNCTIONS
+//Add markers for features to the map
 function createParkSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
     L.geoJson(data, {
@@ -62,6 +63,30 @@ function getParkData(mymap){
 
 	    //call function to add map add-ons
           createParkSymbols(response, mymap, attributes);
+        }
+    });
+};
+
+//KING COUNTY TRAIL DATA FUNCTIONS
+//Add markers for features to the map
+function createTrailSymbols(data, mymap, attributes){
+    //create a Leaflet GeoJSON layer and add it to the map
+    L.geoJson(data, {
+	    style: trailstyle
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getTrailData(mymap){
+    //load the data
+    $.ajax("data/all_trails.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processTrailData(response);
+
+	    //call function to add map add-ons
+          createTrailSymbols(response, mymap, attributes);
         }
     });
 };
