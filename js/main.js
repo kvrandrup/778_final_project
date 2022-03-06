@@ -5,7 +5,7 @@ function createMap(){
     //create the map
     var mymap = L.map('mapid', {
         center: [47.508761, -121.883762],
-        zoom: 9.5
+        zoom: 9.3
     });
 
     //add base tilelayer -- grey basemap, grey reference map
@@ -21,8 +21,53 @@ function createMap(){
 
     getParkData(mymap);
     getTrailData(mymap);
+    getKingData(mymap);
 
 };
+
+//KING COUNTY BOUNDARY DATA FUNCTIONS
+function processKingData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+//Add markers for features to the map
+function createKingSymbols(data, mymap, attributes){
+    //create a Leaflet GeoJSON layer and add it to the map
+    L.geoJson(data, {
+	    style: kingstyle
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getKingData(mymap){
+    //load the data
+    $.ajax("data/king_county.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processKingData(response);
+
+	    //call function to add map add-ons
+          createKingSymbols(response, mymap, attributes);
+        }
+    });
+};
+
 
 //KING COUNTY PARK DATA FUNCTIONS
 function processParkData(data){
@@ -144,7 +189,7 @@ function parkstyle(feature) {
 function trailstyle(feature) {
     return {
         color: "#8b4513", 
-	  width: 1
+	  width: .5
     };
 }
 
