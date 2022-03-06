@@ -166,7 +166,7 @@ function WAstyle(feature) {
     };
 }
 
-function Kingstyle(feature) {
+function kingstyle(feature) {
     return {
         fillColor: "#98FB98",
         weight: 1,
@@ -189,7 +189,7 @@ function parkstyle(feature) {
 function trailstyle(feature) {
     return {
         color: "#8b4513", 
-	  width: .5
+	  weight: .5
     };
 }
 
