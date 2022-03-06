@@ -2,9 +2,9 @@
 
 //universal variables
 var WAdata = "data/wa_boundary.geojson"
-var king_boundary;
-var all_parks;
-var all_trails;
+var king_boundary = "data/king_county.geojson"
+var all_parks = "data/king_parks.geojson"
+var all_trails = "data/king_trails.geojson"
 var tracts;
 
 //function to initialize the Leaflet map
@@ -29,10 +29,10 @@ function createMap(){
 
 function WAstyle(feature) {
     return {
-        fillColor: #98FB98,
+        fillColor: "#98FB98",
         weight: 1,
         opacity: 1,
-        color: #000000,
+        color: "#000000",
         //dashArray: '3',
         fillOpacity: 0
     };
@@ -40,10 +40,10 @@ function WAstyle(feature) {
 
 function Kingstyle(feature) {
     return {
-        fillColor: #98FB98,
+        fillColor: "#98FB98",
         weight: 1,
         opacity: 1,
-        color: #000000,
+        color: "#000000",
         //dashArray: '3',
         fillOpacity: 0
     };
@@ -51,10 +51,10 @@ function Kingstyle(feature) {
 
 function parkstyle(feature) {
     return {
-        fillColor: #98FB98,
+        fillColor: "#98FB98",
         weight: .2,
         opacity: 1,
-        color: #006400,
+        color: "#006400",
         //dashArray: '3',
         fillOpacity: 0.4
     };
@@ -62,7 +62,7 @@ function parkstyle(feature) {
 
 function trailstyle(feature) {
     return {
-        color: #8b4513, 
+        color: "#8b4513", 
 	  width: 1
     };
 }
