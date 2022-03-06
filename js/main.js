@@ -47,8 +47,7 @@ function processParkData(data){
 function createParkSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
     L.geoJson(data, {
-        style: parkstyle
-        }
+	    style: parkstyle
     }).addTo(mymap);
 };
 
