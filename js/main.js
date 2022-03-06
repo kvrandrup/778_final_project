@@ -24,7 +24,7 @@ function createMap(){
     }).addTo(mymap);
 
     //add WA data to map
-    L.geoJson(WAdata, {style: style}).addTo(mymap);
+    L.geoJson(WAdata, {style: WAstyle}).addTo(mymap);
 };
 
 function WAstyle(feature) {
@@ -66,6 +66,38 @@ function trailstyle(feature) {
 	  width: 1
     };
 }
+
+function zoomToFeature(e) {
+    map.fitBounds(e.target.getBounds());
+}
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+}
+
+function resetHighlight(e) {
+    geojson.resetStyle(e.target);
+}
+
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+        click: zoomToFeature
+    });
+}
+
 
 $(document).ready(() => {
     $('#MybtnModal').click(function(){
