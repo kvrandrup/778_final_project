@@ -1,8 +1,6 @@
 /*778 Final Project*/
 
 //universal variables
-var WAdata = "data/wa_boundary.geojson"
-var king_boundary = "data/king_county.geojson"
 var all_parks = "data/king_parks.geojson"
 var all_trails = "data/king_trails.geojson"
 var tracts;
@@ -23,11 +21,19 @@ function createMap(){
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
     }).addTo(mymap);
 
-    //add WA data to map
+    //add WA boundary to map
     $.ajax("data/wa_boundary.geojson", {
 	  dataType: "json", 
 	  success: function(response) {
-		wa_layer = L.geoJson(WAdata, {style: WAstyle}).addTo(mymap);
+		wa_layer = L.geoJson(response, {style: WAstyle}).addTo(mymap);
+	  }
+    });
+
+    //add King County boundary to map
+    $.ajax("data/king_county.geojson", {
+	  dataType: "json", 
+	  success: function(response) {
+		king_layer = L.geoJson(response, {style: Kingstyle}).addTo(mymap);
 	  }
     });
 };
