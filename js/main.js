@@ -17,7 +17,7 @@ function createMap(){
     }).addTo(mymap);
 
     //add WA boundary to map
-    L.geoJson(wa_boundary, {style:WAstyle}).addTo(mymap);
+    L.geoJson(wa_boundary).addTo(mymap);
 
     //add King County boundary to map
     //KinggetData(mymap);
