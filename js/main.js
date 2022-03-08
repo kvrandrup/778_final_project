@@ -179,6 +179,7 @@ function processTractData(data){
 //Add markers for features to the map
 function createTractSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
+    var geojson = L.geoJson(data);
     L.geoJson(data, {
 	    style: style,
 	    onEachFeature: onEachFeature
@@ -263,9 +264,6 @@ function highlightFeature(e) {
         layer.bringToFront();
     }
 }
-
-var geojson;
-geojson = L.geojson(data);
 
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
