@@ -22,6 +22,7 @@ function createMap(){
     getParkData(mymap);
     getTrailData(mymap);
     getKingData(mymap);
+    //getTractData(mymap);
 
 };
 
@@ -155,7 +156,50 @@ function getTrailData(mymap){
     });
 };
 
+//KING COUNTY CENSUS TRACT DATA FUNCTIONS
+function processTractData(data){
+    //empty array to hold attributes
+    var attributes = [];
 
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+//Add markers for features to the map
+function createTractSymbols(data, mymap, attributes){
+    //create a Leaflet GeoJSON layer and add it to the map
+    L.geoJson(data, {
+	    style: tractstyle
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getTractData(mymap){
+    //load the data
+    $.ajax("data/census_blocks.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processTractData(response);
+
+	    //call function to add map add-ons
+          createTractSymbols(response, mymap, attributes);
+        }
+    });
+};
+
+//FEATURE STYLE FUNCTIONS
 function WAstyle(feature) {
     return {
         fillColor: "#98FB98",
@@ -171,7 +215,7 @@ function kingstyle(feature) {
         fillColor: "#98FB98",
         weight: 1,
         opacity: 1,
-        color: "#000000",
+        color: "black",
         fillOpacity: 0
     };
 }
@@ -192,6 +236,17 @@ function trailstyle(feature) {
 	  weight: .5
     };
 }
+
+function tractstyle(feature) {
+    return {
+        fillColor: "#98FB98",
+        weight: .2,
+        opacity: 1,
+        color: "#006400",
+        fillOpacity: 0.4
+    };
+}
+//END OF STYLE FUNCTIONS 
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
