@@ -180,7 +180,7 @@ function processTractData(data){
 function createTractSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
     L.geoJson(data, {
-	    style: tractstyle,
+	    style: style,
 	    onEachFeature: onEachFeature
     }).addTo(mymap);
 };
@@ -238,7 +238,7 @@ function trailstyle(feature) {
     };
 }
 
-function tractstyle(feature) {
+function style(feature) {
     return {
         fillColor: "#d3d3d3",
         weight: .2,
@@ -257,7 +257,7 @@ function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        weight: 5,
+        weight: 2,
         color: '#666',
         dashArray: '',
         fillOpacity: 0.7
