@@ -180,7 +180,8 @@ function processTractData(data){
 function createTractSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
     L.geoJson(data, {
-	    style: tractstyle
+	    style: tractstyle,
+	    onEachFeature: onEachFeature
     }).addTo(mymap);
 };
 
@@ -216,7 +217,7 @@ function kingstyle(feature) {
         weight: 1,
         opacity: 1,
         color: "black",
-        fillOpacity: 0
+        fillOpacity: 0.1
     };
 }
 
@@ -239,11 +240,11 @@ function trailstyle(feature) {
 
 function tractstyle(feature) {
     return {
-        fillColor: "#98FB98",
+        fillColor: "#d3d3d3",
         weight: .2,
         opacity: 1,
         color: "#006400",
-        fillOpacity: 0.4
+        fillOpacity: 0.3
     };
 }
 //END OF STYLE FUNCTIONS 
