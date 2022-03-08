@@ -249,10 +249,6 @@ function style(feature) {
 }
 //END OF STYLE FUNCTIONS 
 
-function zoomToFeature(e) {
-    map.fitBounds(e.target.getBounds());
-}
-
 function highlightFeature(e) {
     var layer = e.target;
 
@@ -268,8 +264,15 @@ function highlightFeature(e) {
     }
 }
 
+var geojson;
+geojson = L.geojson(data);
+
 function resetHighlight(e) {
     geojson.resetStyle(e.target);
+}
+
+function zoomToFeature(e) {
+    mymap.fitBounds(e.target.getBounds());
 }
 
 function onEachFeature(feature, layer) {
