@@ -22,7 +22,7 @@ function createMap(){
     getParkData(mymap);
     getTrailData(mymap);
     getKingData(mymap);
-    //getTractData(mymap);
+    getTractData(mymap);
 
 };
 
