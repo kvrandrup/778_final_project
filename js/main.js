@@ -264,8 +264,8 @@ function highlightFeature(e) {
 }
 
 function resetHighlight(e) {
-    var geojson = L.geojson(data);
-    geojson.resetStyle(e.target);
+    var layer = e.target;
+    layer.resetStyle();
 }
 
 function zoomToFeature(e) {
