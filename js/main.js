@@ -274,7 +274,7 @@ function zoomToFeature(e) {
 function onEachFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
-        mouseout: function(){geojson.resetStyle()};
+        mouseout: function(){geojson.resetStyle()},
         click: zoomToFeature
     });
 }
