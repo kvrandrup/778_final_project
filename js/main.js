@@ -16,9 +16,7 @@ function createMap(){
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
     }).addTo(mymap);
 
-    //add WA boundary to map
-    //L.geoJson(wa_boundary).addTo(mymap);
-
+    //call functions to get data and add it to the map
     getParkData(mymap);
     getTrailData(mymap);
     getKingData(mymap);
@@ -254,10 +252,10 @@ function highlightFeature(e) {
     var layer = e.target;
 
     layer.setStyle({
-        weight: 2,
+        weight: 1,
         color: '#666',
         dashArray: '',
-        fillOpacity: 0.7
+        fillOpacity: 0.5
     });
 
     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
@@ -266,6 +264,7 @@ function highlightFeature(e) {
 }
 
 function resetHighlight(e) {
+    var geojson = L.geojson(data);
     geojson.resetStyle(e.target);
 }
 
