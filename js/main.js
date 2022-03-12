@@ -341,7 +341,7 @@ function diststyle(feature) {
     return {
         fillColor: getColor(feature.properties.gridcode),
         weight: 0,
-        opacity: 1,
+        opacity: 0,
         color: "#006400",
         fillOpacity: 0.5
     };
