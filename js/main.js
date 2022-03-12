@@ -21,7 +21,7 @@ function createMap(){
     getTrailData(mymap);
     getKingData(mymap);
     getTractData(mymap);
-    //getParkDistData(mymap);
+    getParkDistData(mymap);
     //getTrailDistData(mymap);
 
 };
@@ -339,7 +339,7 @@ function style(feature) {
 
 function diststyle(feature) {
     return {
-        fillColor: getColor(feature.properties.gridcode),
+        fillColor: getColor(feature.properties.dist),
         weight: 0,
         opacity: 0,
         color: "#006400",
@@ -351,15 +351,15 @@ function diststyle(feature) {
 
 //get color function for distance layers
 function getColor(d) {
-	return d > 135 ? "D73027" :
-		 d > 120 ? "F46D43" :
-		 d > 105 ? "FDAE61" :
-		 d > 85 ? "FEE090" :
-		 d > 70 ? "FFFFBF" :
-		 d > 50 ? "E0F3F8" :
-		 d > 30 ? "ABD9E9" :
-		 d > 15 ? "74ADD1" :
-			    "4575B4" ;
+	return d = 9 ? "D73027" :
+		 d = 8 ? "F46D43" :
+		 d = 7 ? "FDAE61" :
+		 d = 6 ? "FEE090" :
+		 d = 5 ? "FFFFBF" :
+		 d = 4 ? "E0F3F8" :
+		 d = 3 ? "ABD9E9" :
+		 d = 2 ? "74ADD1" :
+		 d = 1 ? "4575B4" ;
 }
 
 function highlightFeature(e) {
