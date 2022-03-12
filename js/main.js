@@ -351,14 +351,14 @@ function diststyle(feature) {
 
 //get color function for distance layers
 function getColor(d) {
-	return d = 9 ? "D73027" :
-		 d = 8 ? "F46D43" :
-		 d = 7 ? "FDAE61" :
-		 d = 6 ? "FEE090" :
-		 d = 5 ? "FFFFBF" :
-		 d = 4 ? "E0F3F8" :
-		 d = 3 ? "ABD9E9" :
-		 d = 2 ? "74ADD1" :
+	return d == 9 ? "D73027" :
+		 d == 8 ? "F46D43" :
+		 d == 7 ? "FDAE61" :
+		 d == 6 ? "FEE090" :
+		 d == 5 ? "FFFFBF" :
+		 d == 4 ? "E0F3F8" :
+		 d == 3 ? "ABD9E9" :
+		 d == 2 ? "74ADD1" :
 		 	   "4575B4" ;
 }
 
