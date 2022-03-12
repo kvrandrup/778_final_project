@@ -339,7 +339,7 @@ function style(feature) {
 
 function diststyle(feature) {
     return {
-        fillColor: getColor(feature.properties.dist),
+        fillColor: getColor(feature.attributes.dist),
         weight: .2,
         opacity: 1,
         color: "black",
