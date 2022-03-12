@@ -359,7 +359,7 @@ function getColor(d) {
 		 d = 4 ? "E0F3F8" :
 		 d = 3 ? "ABD9E9" :
 		 d = 2 ? "74ADD1" :
-		 d = 1 ? "4575B4" ;
+		 	   "4575B4" ;
 }
 
 function highlightFeature(e) {
