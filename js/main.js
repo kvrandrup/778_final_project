@@ -187,7 +187,7 @@ function createTractSymbols(data, mymap, attributes){
 //function to retrieve the park data and place it on the map
 function getTractData(mymap){
     //load the data
-    $.ajax("data/census_blocks.geojson", {
+    $.ajax("data/census_tract.geojson", {
         dataType: "json",
         success: function(response){
 	    //create an attributes array
