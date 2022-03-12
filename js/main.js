@@ -21,8 +21,8 @@ function createMap(){
     getTrailData(mymap);
     getKingData(mymap);
     getTractData(mymap);
-    getParkDistData(mymap);
-    getTrailDistData(mymap);
+    //getParkDistData(mymap);
+    //getTrailDistData(mymap);
 
 };
 
