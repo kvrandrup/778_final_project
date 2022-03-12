@@ -21,6 +21,8 @@ function createMap(){
     getTrailData(mymap);
     getKingData(mymap);
     getTractData(mymap);
+    getParkDistData(mymap);
+    getTrailDistData(mymap);
 
 };
 
@@ -199,6 +201,94 @@ function getTractData(mymap){
     });
 };
 
+//KING COUNTY DISTANCE FROM PARK DATA FUNCTIONS
+function processParkDistData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+//Add markers for features to the map
+function createParkDistSymbols(data, mymap, attributes){
+    //create a Leaflet GeoJSON layer and add it to the map
+    var geojson = L.geoJson(data);
+    L.geoJson(data, {
+	    style: diststyle,
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getParkDistData(mymap){
+    //load the data
+    $.ajax("data/park_distance.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processParkDistData(response);
+
+	    //call function to add map add-ons
+          createParkDistSymbols(response, mymap, attributes);
+        }
+    });
+};
+
+//KING COUNTY DISTANCE FROM TRAIL DATA FUNCTIONS
+function processTrailDistData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+//Add markers for features to the map
+function createTrailDistSymbols(data, mymap, attributes){
+    //create a Leaflet GeoJSON layer and add it to the map
+    var geojson = L.geoJson(data);
+    L.geoJson(data, {
+	    style: diststyle,
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getTrailDistData(mymap){
+    //load the data
+    $.ajax("data/trail_distance.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processTractData(response);
+
+	    //call function to add map add-ons
+          createTrailDistSymbols(response, mymap, attributes);
+        }
+    });
+};
+
 //FEATURE STYLE FUNCTIONS
 function WAstyle(feature) {
     return {
@@ -246,7 +336,31 @@ function style(feature) {
         fillOpacity: 0.3
     };
 }
+
+function diststyle(feature) {
+    return {
+        fillColor: getColor(feature.properties.gridcode),
+        weight: 0,
+        opacity: 1,
+        color: "#006400",
+        fillOpacity: 0.5
+    };
+}
+
 //END OF STYLE FUNCTIONS 
+
+//get color function for distance layers
+function getColor(d) {
+	return d > 135 ? "D73027" :
+		 d > 120 ? "F46D43" :
+		 d > 105 ? "FDAE61" :
+		 d > 85 ? "FEE090" :
+		 d > 70 ? "FFFFBF" :
+		 d > 50 ? "E0F3F8" :
+		 d > 30 ? "ABD9E9" :
+		 d > 15 ? "74ADD1" :
+			    "4575B4" ;
+}
 
 function highlightFeature(e) {
     var layer = e.target;
