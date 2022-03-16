@@ -261,12 +261,13 @@ function processTrailDistData(data){
 
     //check result
     console.log(attributes);
+    console.log(properties.dist);
 
     return attributes;
 };
 
 //Add markers for features to the map
-function createTrailDistSymbols(data, mymap, attributes){
+function createTrailDistSymbols(data, mymap, attributes){  
     //create a Leaflet GeoJSON layer and add it to the map
     var geojson = L.geoJson(data);
     L.geoJson(data, {
@@ -339,7 +340,7 @@ function style(feature) {
 
 function diststyle(feature) {
     return {
-        fillColor: getColor(feature.attributes.dist),
+        fillColor: getColor(feature.properties.dist),
         weight: .2,
         opacity: 1,
         color: "black",
