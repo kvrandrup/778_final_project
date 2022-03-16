@@ -172,6 +172,7 @@ function processTractData(data){
 
     //check result
     console.log(attributes);
+    console.log(properties.dist);
 
     return attributes;
 };
