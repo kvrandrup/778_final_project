@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>Randrup 778</title>
-	<header>Green Space and Population Demographics in King County</header>
+	<header>Green Space and Population Demographics in King County, Washington</header>
 
 	<!--put your external stylesheet links here-->
 	<!-- <link rel="stylesheet" href="lib/leaflet.css"> -->
@@ -14,15 +14,13 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link rel="stylesheet" href="./css/d3Style.css"></link>
 
-	<script src="./data/wa_boundary.geojson"></script>
-
 	<!--JS links-->
 	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
 		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
 		crossorigin=""></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script> 
+	<script type="text/javascript" src="js/main.js"></script>
 	<!-- <script type="text/javascript" src="js/geojson.js"></script> -->
 </head>
 
@@ -58,13 +56,13 @@
 		<div class="row" id="ParkOverlayRow">
                     <h1>King County Parks and Trails</h1>
                     <div class="form-check">
-                        <input type="checkbox" name="parks" id="parks" checked>
+                        <input type="checkbox" name="parks" id="parks" onclick ="handleParkClick(this);" checked>
                         <label for="parks">
                             Parks
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="checkbox" name="trails" id="trails" checked>
+                        <input type="checkbox" name="trails" id="trails" onclick ="handleTrailClick(this);" checked>
                         <label for="trails">
                            Trails
                         </label>
@@ -73,13 +71,13 @@
 		<div class="row" id="ParkDistanceRow">
                     <h1>Distance From Parks and Trails</h1>
                     <div class="form-check">
-                        <input type="radio" name="distpark" id="distpark" onclick="getParkDistData()">
+                        <input type="radio" name="distpark" id="distpark">
                         <label for="distpark">
                             Distance from a Park
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="radio" name="disttrail" id="disttrail" onclick="getTrailDistData()">
+                        <input type="radio" name="disttrail" id="disttrail">
                         <label for="disttrail">
                            Distance from a Trail
                         </label>

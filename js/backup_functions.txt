@@ -1,0 +1,234 @@
+//backup code
+//KING COUNTY DISTANCE FROM PARK DATA FUNCTIONS
+function processParkDistData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+function shapeToLayer(feature, attributes) {
+    var attribute = "dist";
+    var attValue = feature.properties[attribute];
+    console.log(feature.properties);
+
+    function diststyle(feature) {
+    	return {
+        fillColor: getColor(attValue),
+        weight: .2,
+        opacity: 1,
+        color: "black",
+        fillOpacity: 0.5
+    		};
+	}
+
+    //get color function for distance layers
+	function getColor(d) {
+		return d == "9" ? "D73027" :
+		 	d == "8" ? "F46D43" :
+		 	d == "7" ? "FDAE61" :
+		 	d == "6" ? "FEE090" :
+		 	d == "5" ? "FFFFBF" :
+		 	d == "4" ? "E0F3F8" :
+		 	d == "3" ? "ABD9E9" :
+		 	d == "2" ? "74ADD1" :
+                       "4575B4" ;
+		}
+}
+
+//Add markers for features to the map
+function createParkDistSymbols(data, mymap, attributes){
+    //create a Leaflet GeoJSON layer and add it to the map
+    L.geoJson(data, {
+        shapeToLayer: shapeToLayer()
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getParkDistData(mymap){
+    //load the data
+    $.ajax("data/park_distance.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processParkDistData(response);
+
+	    //call function to add map add-ons
+          createParkDistSymbols(response, mymap, attributes);
+        }
+    });
+};
+
+//KING COUNTY DISTANCE FROM TRAIL DATA FUNCTIONS
+function processTrailDistData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+//Add markers for features to the map
+function createTrailDistSymbols(data, mymap, attributes){  
+    //create a Leaflet GeoJSON layer and add it to the map
+    var geojson = L.geoJson(data);
+    L.geoJson(data, {
+	    style: diststyle,
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getTrailDistData(mymap){
+    //load the data
+    $.ajax("data/trail_distance.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processTractData(response);
+
+	    //call function to add map add-ons
+          createTrailDistSymbols(response, mymap, attributes);
+        }
+    });
+};
+
+//twice just to be sure haha
+
+//KING COUNTY DISTANCE FROM PARK DATA FUNCTIONS
+function processParkDistData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+function shapeToLayer(feature, attributes) {
+    var attribute = "dist";
+    var attValue = feature.properties[attribute];
+    console.log(feature.properties);
+
+    function diststyle(feature) {
+    	return {
+        fillColor: getColor(attValue),
+        weight: .2,
+        opacity: 1,
+        color: "black",
+        fillOpacity: 0.5
+    		};
+	}
+
+    //get color function for distance layers
+	function getColor(d) {
+		return d == "9" ? "D73027" :
+		 	d == "8" ? "F46D43" :
+		 	d == "7" ? "FDAE61" :
+		 	d == "6" ? "FEE090" :
+		 	d == "5" ? "FFFFBF" :
+		 	d == "4" ? "E0F3F8" :
+		 	d == "3" ? "ABD9E9" :
+		 	d == "2" ? "74ADD1" :
+                       "4575B4" ;
+		}
+}
+
+//Add markers for features to the map
+function createParkDistSymbols(data, mymap, attributes){
+    //create a Leaflet GeoJSON layer and add it to the map
+    L.geoJson(data, {
+        shapeToLayer: shapeToLayer()
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getParkDistData(mymap){
+    //load the data
+    $.ajax("data/park_distance.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processParkDistData(response);
+
+	    //call function to add map add-ons
+          createParkDistSymbols(response, mymap, attributes);
+        }
+    });
+};
+
+//KING COUNTY DISTANCE FROM TRAIL DATA FUNCTIONS
+function processTrailDistData(data){
+    //empty array to hold attributes
+    var attributes = [];
+
+    //properties of the first feature in the dataset
+    var properties = data.features[0].properties;
+
+    //push each attribute name into attributes array
+    for (var attribute in properties){
+        //take all attributes
+            attributes.push(attribute);
+    };
+
+    //check result
+    console.log(attributes);
+
+    return attributes;
+};
+
+//Add markers for features to the map
+function createTrailDistSymbols(data, mymap, attributes){  
+    //create a Leaflet GeoJSON layer and add it to the map
+    var geojson = L.geoJson(data);
+    L.geoJson(data, {
+	    style: diststyle,
+    }).addTo(mymap);
+};
+
+//function to retrieve the park data and place it on the map
+function getTrailDistData(mymap){
+    //load the data
+    $.ajax("data/trail_distance.geojson", {
+        dataType: "json",
+        success: function(response){
+	    //create an attributes array
+	    var attributes = processTractData(response);
+
+	    //call function to add map add-ons
+          createTrailDistSymbols(response, mymap, attributes);
+        }
+    });
+};

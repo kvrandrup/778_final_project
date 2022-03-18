@@ -1,11 +1,10 @@
 /*778 Final Project*/
-
 //function to initialize the Leaflet map
 function createMap(){
     //create the map
     var mymap = L.map('mapid', {
         center: [47.508761, -121.883762],
-        zoom: 9.3
+       zoom: 10
     });
 
     //add base tilelayer -- grey basemap, grey reference map
@@ -19,56 +18,10 @@ function createMap(){
     //call functions to get data and add it to the map
     getParkData(mymap);
     getTrailData(mymap);
-    getKingData(mymap);
     getTractData(mymap);
-    getParkDistData(mymap);
-    //getTrailDistData(mymap);
-
+    //getParkDistData(mymap);
+    getTrailDistData(mymap);
 };
-
-//KING COUNTY BOUNDARY DATA FUNCTIONS
-function processKingData(data){
-    //empty array to hold attributes
-    var attributes = [];
-
-    //properties of the first feature in the dataset
-    var properties = data.features[0].properties;
-
-    //push each attribute name into attributes array
-    for (var attribute in properties){
-        //take all attributes
-            attributes.push(attribute);
-    };
-
-    //check result
-    console.log(attributes);
-
-    return attributes;
-};
-
-//Add markers for features to the map
-function createKingSymbols(data, mymap, attributes){
-    //create a Leaflet GeoJSON layer and add it to the map
-    L.geoJson(data, {
-	    style: kingstyle
-    }).addTo(mymap);
-};
-
-//function to retrieve the park data and place it on the map
-function getKingData(mymap){
-    //load the data
-    $.ajax("data/king_county.geojson", {
-        dataType: "json",
-        success: function(response){
-	    //create an attributes array
-	    var attributes = processKingData(response);
-
-	    //call function to add map add-ons
-          createKingSymbols(response, mymap, attributes);
-        }
-    });
-};
-
 
 //KING COUNTY PARK DATA FUNCTIONS
 function processParkData(data){
@@ -85,11 +38,10 @@ function processParkData(data){
     };
 
     //check result
-    console.log(attributes);
+    //console.log(attributes);
 
     return attributes;
 };
-
 //Add markers for features to the map
 function createParkSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
@@ -97,7 +49,6 @@ function createParkSymbols(data, mymap, attributes){
 	    style: parkstyle
     }).addTo(mymap);
 };
-
 //function to retrieve the park data and place it on the map
 function getParkData(mymap){
     //load the data
@@ -112,6 +63,14 @@ function getParkData(mymap){
         }
     });
 };
+function handleParkClick(checkbox){
+    if(checkbox.checked){
+        console.log(checkbox.value+"True")
+    }
+    else{
+        console.log(checkbox.value+"False")
+    };
+};
 
 //KING COUNTY TRAIL DATA FUNCTIONS
 function processTrailData(data){
@@ -124,15 +83,14 @@ function processTrailData(data){
     //push each attribute name into attributes array
     for (var attribute in properties){
         //take all attributes
-            attributes.push(attribute);
+        attributes.push(attribute);
     };
 
     //check result
-    console.log(attributes);
+    //console.log(attributes);
 
     return attributes;
 };
-
 //Add markers for features to the map
 function createTrailSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
@@ -140,7 +98,6 @@ function createTrailSymbols(data, mymap, attributes){
 	    style: trailstyle
     }).addTo(mymap);
 };
-
 //function to retrieve the park data and place it on the map
 function getTrailData(mymap){
     //load the data
@@ -155,6 +112,14 @@ function getTrailData(mymap){
         }
     });
 };
+function handleTrailClick(checkbox){
+    if(checkbox.checked){
+        console.log(checkbox.value+"True")
+    }
+    else{
+        console.log(checkbox.value+"False")
+    };
+};
 
 //KING COUNTY CENSUS TRACT DATA FUNCTIONS
 function processTractData(data){
@@ -162,25 +127,20 @@ function processTractData(data){
     var attributes = [];
 
     //properties of the first feature in the dataset
-    var properties = data.features[0].properties;
+    for (var i=0; i<427; i++){
+        attributes.push(data.features[i].properties);
+    }
+    //console.log(properties);
 
-    //push each attribute name into attributes array
-    for (var attribute in properties){
-        //take all attributes
-            attributes.push(attribute);
-    };
-
+    //attributes.push(properties);
     //check result
     console.log(attributes);
-    console.log(properties.dist);
-
     return attributes;
 };
 
 //Add markers for features to the map
 function createTractSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
-    var geojson = L.geoJson(data);
     L.geoJson(data, {
 	    style: style,
 	    onEachFeature: onEachFeature
@@ -208,26 +168,28 @@ function processParkDistData(data){
     var attributes = [];
 
     //properties of the first feature in the dataset
-    var properties = data.features[0].properties;
-
-    //push each attribute name into attributes array
-    for (var attribute in properties){
-        //take all attributes
-            attributes.push(attribute);
-    };
+    var properties = [data.features[0].properties, data.features[1].properties,
+                      data.features[2].properties, data.features[3].properties,
+                      data.features[4].properties, data.features[5].properties,
+                      data.features[6].properties, data.features[7].properties,
+                      data.features[8].properties];
+    attributes = properties
 
     //check result
     console.log(attributes);
-
     return attributes;
 };
+
+function pointToLayer(feature, attributes) {
+    var attribute = attributes[1];
+    console.log(attribute);
+}
 
 //Add markers for features to the map
 function createParkDistSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
-    var geojson = L.geoJson(data);
     L.geoJson(data, {
-	    style: diststyle,
+        style: diststyle
     }).addTo(mymap);
 };
 
@@ -237,14 +199,15 @@ function getParkDistData(mymap){
     $.ajax("data/park_distance.geojson", {
         dataType: "json",
         success: function(response){
-	    //create an attributes array
-	    var attributes = processParkDistData(response);
+            //create an attributes array
+            var attributes = processParkDistData(response);
 
-	    //call function to add map add-ons
-          createParkDistSymbols(response, mymap, attributes);
+            //call function to add map add-ons
+            createParkDistSymbols(response, mymap, attributes);
         }
     });
 };
+
 
 //KING COUNTY DISTANCE FROM TRAIL DATA FUNCTIONS
 function processTrailDistData(data){
@@ -252,27 +215,25 @@ function processTrailDistData(data){
     var attributes = [];
 
     //properties of the first feature in the dataset
-    var properties = data.features[0].properties;
-
-    //push each attribute name into attributes array
-    for (var attribute in properties){
-        //take all attributes
-            attributes.push(attribute);
-    };
+    var properties = [data.features[0].properties, data.features[1].properties,
+                      data.features[2].properties, data.features[3].properties,
+                      data.features[4].properties, data.features[5].properties,
+                      data.features[6].properties, data.features[7].properties,
+                      data.features[8].properties];
+    attributes = properties;
 
     //check result
     console.log(attributes);
-    console.log(properties.dist);
-
     return attributes;
 };
 
 //Add markers for features to the map
-function createTrailDistSymbols(data, mymap, attributes){  
+function createTrailDistSymbols(data, mymap, attributes){
+    var attribute = attributes[0];
+    console.log(attribute["dist"]);
     //create a Leaflet GeoJSON layer and add it to the map
-    var geojson = L.geoJson(data);
     L.geoJson(data, {
-	    style: diststyle,
+        style: diststyle
     }).addTo(mymap);
 };
 
@@ -282,35 +243,17 @@ function getTrailDistData(mymap){
     $.ajax("data/trail_distance.geojson", {
         dataType: "json",
         success: function(response){
-	    //create an attributes array
-	    var attributes = processTractData(response);
+            //create an attributes array
+            var attributes = processTrailDistData(response);
 
-	    //call function to add map add-ons
-          createTrailDistSymbols(response, mymap, attributes);
+            //call function to add map add-ons
+            createTrailDistSymbols(response, mymap, attributes);
         }
     });
 };
 
-//FEATURE STYLE FUNCTIONS
-function WAstyle(feature) {
-    return {
-        fillColor: "#98FB98",
-        weight: 1,
-        opacity: 1,
-        color: "#000000",
-        fillOpacity: 0
-    };
-}
 
-function kingstyle(feature) {
-    return {
-        fillColor: "#98FB98",
-        weight: 1,
-        opacity: 1,
-        color: "black",
-        fillOpacity: 0.1
-    };
-}
+//FEATURE STYLE FUNCTIONS
 
 function parkstyle(feature) {
     return {
@@ -349,58 +292,56 @@ function diststyle(feature) {
     };
 }
 
-//END OF STYLE FUNCTIONS 
-
 //get color function for distance layers
 function getColor(d) {
-	return d == 9 ? "D73027" :
-		 d == 8 ? "F46D43" :
-		 d == 7 ? "FDAE61" :
-		 d == 6 ? "FEE090" :
-		 d == 5 ? "FFFFBF" :
-		 d == 4 ? "E0F3F8" :
-		 d == 3 ? "ABD9E9" :
-		 d == 2 ? "74ADD1" :
-		 	   "4575B4" ;
+    return d == "9" ? "#D73027" :
+        d == "8" ? "#F46D43" :
+            d == "7" ? "#FDAE61" :
+                d == "6" ? "#FEE090" :
+                    d == "5" ? "#FFFFBF" :
+                        d == "4" ? "#E0F3F8" :
+                            d == "3" ? "#ABD9E9" :
+                                d == "2" ? "#74ADD1" :
+                                    "#4575B4" ;
 }
+//END OF STYLE FUNCTIONS
 
-function highlightFeature(e) {
-    var layer = e.target;
-
-    layer.setStyle({
-        weight: 1,
-        color: '#666',
-        dashArray: '',
-        fillOpacity: 0.5
-    });
-
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
-    }
-}
-
-function resetHighlight(e) {
-    geojson.resetStyle(e.target);
-}
-
-function zoomToFeature(e) {
-    mymap.fitBounds(e.target.getBounds());
-}
-
-function onEachFeature(feature, layer) {
+function onEachFeature(feature, layer, geojson, mymap) {
     layer.on({
-        mouseover: highlightFeature,
-        mouseout: function(){geojson.resetStyle()},
-        click: zoomToFeature
+        mouseover: function highlightFeature(e) {
+            var layer = e.target;
+
+            layer.setStyle({
+                weight: 1,
+                color: '#666',
+                dashArray: '',
+                fillOpacity: 0.5
+            });
+
+            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                layer.bringToFront();
+            }
+        },
+        mouseout: function resetHighlight(e){
+            geojson.resetStyle(e.target);
+        },
+        click: function zoomToFeature(e) {
+            mymap.fitBounds(e.target.getBounds());
+        }
     });
 }
 
 
 $(document).ready(() => {
+    $('#modal').modal('show');
     $('#MybtnModal').click(function(){
 	$('#modal').modal('show')
 	});
-    //indicator = $('input[name=flexRadioDefault]:checked')[0].id.replace('Radio','');
-    //initListeners();
+    $('#parks').click(function(){
+        alert("It Clicked!");
+    });
+    $('#trails').click(function(){
+        alert("It Clicked!");
+    });
     createMap();
 });
