@@ -29,25 +29,25 @@
 		<div class="row" id="CensusOverlayRow">
                     <h1>King County Census Tracts</h1>
                     <div class="form-check">
-                        <input type="radio" name="popdens" id="popdens">
+                        <input type="radio" name="tract_display" id="popdens">
                         <label for="popdens">
                             Population Density
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="radio" name="popwhite" id="popwhite">
+                        <input type="radio" name="tract_display" id="popwhite">
                         <label for="popwhite">
                             Percent White
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="radio" name="popmale" id="popmale">
+                        <input type="radio" name="tract_display" id="popmale">
                         <label for="popmale">
                             Percent Male
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="radio" name="default" id="default" checked>
+                        <input type="radio" name="tract_display" id="default" checked>
                         <label for="default">
                            No Data
                         </label>
@@ -56,13 +56,13 @@
 		<div class="row" id="ParkOverlayRow">
                     <h1>King County Parks and Trails</h1>
                     <div class="form-check">
-                        <input type="checkbox" name="parks" id="parks" onclick ="handleParkClick(this);" checked>
+                        <input type="checkbox" name="background_layer" id="parks" checked>
                         <label for="parks">
                             Parks
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="checkbox" name="trails" id="trails" onclick ="handleTrailClick(this);" checked>
+                        <input type="checkbox" name="background_layer" id="trails" checked>
                         <label for="trails">
                            Trails
                         </label>
@@ -71,13 +71,13 @@
 		<div class="row" id="ParkDistanceRow">
                     <h1>Distance From Parks and Trails</h1>
                     <div class="form-check">
-                        <input type="radio" name="distpark" id="distpark">
+                        <input type="checkbox" name="distpark" id="distpark">
                         <label for="distpark">
                             Distance from a Park
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="radio" name="disttrail" id="disttrail">
+                        <input type="checkbox" name="disttrail" id="disttrail">
                         <label for="disttrail">
                            Distance from a Trail
                         </label>

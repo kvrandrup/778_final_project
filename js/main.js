@@ -17,9 +17,9 @@ function createMap(){
 
     //call functions to get data and add it to the map
     getParkData(mymap);
-    getTrailData(mymap);
+    getTrailData(mymap)
     getTractData(mymap);
-    //getParkDistData(mymap);
+    getParkDistData(mymap);
     getTrailDistData(mymap);
 };
 
@@ -44,10 +44,16 @@ function processParkData(data){
 };
 //Add markers for features to the map
 function createParkSymbols(data, mymap, attributes){
-    //create a Leaflet GeoJSON layer and add it to the map
-    L.geoJson(data, {
-	    style: parkstyle
-    }).addTo(mymap);
+     var parkLayer = L.geoJson(data, {
+           style: parkstyle
+        }).addTo(mymap);
+    $('#parks').click(function() {
+        if (document.getElementById("parks").checked == true) {
+            parkLayer.addTo(mymap);
+        } else if (document.getElementById("parks").checked == false) {
+            parkLayer.remove();
+        };
+    });
 };
 //function to retrieve the park data and place it on the map
 function getParkData(mymap){
@@ -62,14 +68,6 @@ function getParkData(mymap){
           createParkSymbols(response, mymap, attributes);
         }
     });
-};
-function handleParkClick(checkbox){
-    if(checkbox.checked){
-        console.log(checkbox.value+"True")
-    }
-    else{
-        console.log(checkbox.value+"False")
-    };
 };
 
 //KING COUNTY TRAIL DATA FUNCTIONS
@@ -93,11 +91,18 @@ function processTrailData(data){
 };
 //Add markers for features to the map
 function createTrailSymbols(data, mymap, attributes){
-    //create a Leaflet GeoJSON layer and add it to the map
-    L.geoJson(data, {
-	    style: trailstyle
+    var trailLayer = L.geoJson(data, {
+        style: trailstyle
     }).addTo(mymap);
+    $('#trails').click(function() {
+        if (document.getElementById("trails").checked == true) {
+            trailLayer.addTo(mymap);
+        } else if (document.getElementById("trails").checked == false) {
+            trailLayer.remove();
+        };
+    });
 };
+
 //function to retrieve the park data and place it on the map
 function getTrailData(mymap){
     //load the data
@@ -111,14 +116,6 @@ function getTrailData(mymap){
           createTrailSymbols(response, mymap, attributes);
         }
     });
-};
-function handleTrailClick(checkbox){
-    if(checkbox.checked){
-        console.log(checkbox.value+"True")
-    }
-    else{
-        console.log(checkbox.value+"False")
-    };
 };
 
 //KING COUNTY CENSUS TRACT DATA FUNCTIONS
@@ -187,10 +184,17 @@ function pointToLayer(feature, attributes) {
 
 //Add markers for features to the map
 function createParkDistSymbols(data, mymap, attributes){
-    //create a Leaflet GeoJSON layer and add it to the map
-    L.geoJson(data, {
+    var parkDistLayer = L.geoJson(data, {
         style: diststyle
     }).addTo(mymap);
+    parkDistLayer.remove();
+    $('#distpark').click(function() {
+        if (document.getElementById("distpark").checked == false) {
+            parkDistLayer.remove();;
+        } else if (document.getElementById("distpark").checked == true) {
+            parkDistLayer.addTo(mymap);
+        };
+    });
 };
 
 //function to retrieve the park data and place it on the map
@@ -231,10 +235,24 @@ function processTrailDistData(data){
 function createTrailDistSymbols(data, mymap, attributes){
     var attribute = attributes[0];
     console.log(attribute["dist"]);
-    //create a Leaflet GeoJSON layer and add it to the map
-    L.geoJson(data, {
+    var trailDistLayer = L.geoJson(data, {
         style: diststyle
     }).addTo(mymap);
+    trailDistLayer.remove();
+    $('#disttrail').click(function() {
+        if (document.getElementById("disttrail").checked == false) {
+            trailDistLayer.remove();;
+        } else if (document.getElementById("disttrail").checked == true) {
+            trailDistLayer.addTo(mymap);
+        };
+    });
+    $('#disttrail').click(function() {
+        if (document.getElementById("disttrail").checked == true) {
+            trailDistLayer.addTo(mymap);
+        } else if (document.getElementById("disttrail").checked == false) {
+            trailDistLayer.remove();
+        };
+    });
 };
 
 //function to retrieve the park data and place it on the map
@@ -254,21 +272,20 @@ function getTrailDistData(mymap){
 
 
 //FEATURE STYLE FUNCTIONS
-
 function parkstyle(feature) {
     return {
         fillColor: "#98FB98",
         weight: .2,
         opacity: 1,
         color: "#006400",
-        fillOpacity: 0.4
+        fillOpacity: 0.7
     };
 }
 
 function trailstyle(feature) {
     return {
         color: "#8b4513", 
-	  weight: .5
+	  weight: .7
     };
 }
 
@@ -288,7 +305,7 @@ function diststyle(feature) {
         weight: .2,
         opacity: 1,
         color: "black",
-        fillOpacity: 0.5
+        fillOpacity: 0.4
     };
 }
 
@@ -336,12 +353,6 @@ $(document).ready(() => {
     $('#modal').modal('show');
     $('#MybtnModal').click(function(){
 	$('#modal').modal('show')
-	});
-    $('#parks').click(function(){
-        alert("It Clicked!");
-    });
-    $('#trails').click(function(){
-        alert("It Clicked!");
     });
     createMap();
 });
