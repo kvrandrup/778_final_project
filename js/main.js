@@ -36,10 +36,6 @@ function processParkData(data){
         //take all attributes
             attributes.push(attribute);
     };
-
-    //check result
-    //console.log(attributes);
-
     return attributes;
 };
 //Add markers for features to the map
@@ -83,10 +79,6 @@ function processTrailData(data){
         //take all attributes
         attributes.push(attribute);
     };
-
-    //check result
-    //console.log(attributes);
-
     return attributes;
 };
 //Add markers for features to the map
@@ -127,10 +119,6 @@ function processTractData(data){
     for (var i=0; i<427; i++){
         attributes.push(data.features[i].properties);
     }
-    //console.log(properties);
-
-    //attributes.push(properties);
-    //check result
     console.log(attributes);
     return attributes;
 };
@@ -138,7 +126,7 @@ function processTractData(data){
 //Add markers for features to the map
 function createTractSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
-    L.geoJson(data, {
+    var tractLayer = L.geoJson(data, {
 	    style: style,
 	    onEachFeature: onEachFeature
     }).addTo(mymap);
@@ -177,11 +165,6 @@ function processParkDistData(data){
     return attributes;
 };
 
-function pointToLayer(feature, attributes) {
-    var attribute = attributes[1];
-    console.log(attribute);
-}
-
 //Add markers for features to the map
 function createParkDistSymbols(data, mymap, attributes){
     var parkDistLayer = L.geoJson(data, {
@@ -190,7 +173,7 @@ function createParkDistSymbols(data, mymap, attributes){
     parkDistLayer.remove();
     $('#distpark').click(function() {
         if (document.getElementById("distpark").checked == false) {
-            parkDistLayer.remove();;
+            parkDistLayer.remove();
         } else if (document.getElementById("distpark").checked == true) {
             parkDistLayer.addTo(mymap);
         };
@@ -211,7 +194,6 @@ function getParkDistData(mymap){
         }
     });
 };
-
 
 //KING COUNTY DISTANCE FROM TRAIL DATA FUNCTIONS
 function processTrailDistData(data){
@@ -244,13 +226,6 @@ function createTrailDistSymbols(data, mymap, attributes){
             trailDistLayer.remove();;
         } else if (document.getElementById("disttrail").checked == true) {
             trailDistLayer.addTo(mymap);
-        };
-    });
-    $('#disttrail').click(function() {
-        if (document.getElementById("disttrail").checked == true) {
-            trailDistLayer.addTo(mymap);
-        } else if (document.getElementById("disttrail").checked == false) {
-            trailDistLayer.remove();
         };
     });
 };
@@ -299,9 +274,46 @@ function style(feature) {
     };
 }
 
+function densstyle(feature) {
+    return {
+        fillColor: getDensColor(feature.properties.log_dens),
+        weight: .2,
+        opacity: 1,
+        color: "#006400",
+        fillOpacity: 0.7
+    };
+}
+function malestyle(feature) {
+    return {
+        fillColor: getMaleColor(feature.properties.PercMale),
+        weight: .2,
+        opacity: 1,
+        color: "#006400",
+        fillOpacity: 0.7
+    };
+}
+function whitestyle(feature) {
+    return {
+        fillColor: getWhiteColor(feature.properties.PercWhite),
+        weight: .2,
+        opacity: 1,
+        color: "#006400",
+        fillOpacity: 0.7
+    };
+}
+function popstyle(feature) {
+    return {
+        fillColor: getPopColor(feature.properties.POP2010),
+        weight: .2,
+        opacity: 1,
+        color: "#006400",
+        fillOpacity: 0.7
+    };
+}
+
 function diststyle(feature) {
     return {
-        fillColor: getColor(feature.properties.dist),
+        fillColor: getDistColor(feature.properties.dist),
         weight: .2,
         opacity: 1,
         color: "black",
@@ -309,8 +321,9 @@ function diststyle(feature) {
     };
 }
 
-//get color function for distance layers
-function getColor(d) {
+//get color function for layers
+//Distance
+function getDistColor(d) {
     return d == "9" ? "#D73027" :
         d == "8" ? "#F46D43" :
             d == "7" ? "#FDAE61" :
@@ -320,6 +333,54 @@ function getColor(d) {
                             d == "3" ? "#ABD9E9" :
                                 d == "2" ? "#74ADD1" :
                                     "#4575B4" ;
+}
+//Density
+function getDensColor(d) {
+    return d <= -6.198 ? "#D73027" :
+        d <= -4.301 ? "#F46D43" :
+            d <= -3.356 ? "#FDAE61" :
+                d <= -2.677 ? "#FEE08B" :
+                    d <= -2.273 ? "#FFFFBF" :
+                        d <= -1.684 ? "#D9EF8B" :
+                            d <= -0.514 ? "#A6D96A" :
+                                d <= 1.843 ? "#66BD63" :
+                                    "#1A9850" ;
+}
+//Male
+function getMaleColor(d) {
+    return d <= 46.96 ? "#D73027" :
+        d <= 48.23 ? "#F46D43" :
+            d <= 49.14 ? "#FDAE61" :
+                d <= 49.92 ? "#FEE08B" :
+                    d <= 50.75 ? "#FFFFBF" :
+                        d <= 52.05 ? "#D9EF8B" :
+                            d <= 59.29 ? "#A6D96A" :
+                                d <= 67.34 ? "#66BD63" :
+                                    "#1A9850" ;
+}
+//White
+function getWhiteColor(d) {
+    return d <= 30.88 ? "#D73027" :
+        d <= 47.33 ? "#F46D43" :
+            d <= 57.26 ? "#FDAE61" :
+                d <= 65.59 ? "#FEE08B" :
+                    d <= 75.07 ? "#FFFFBF" :
+                        d <= 80.98 ? "#D9EF8B" :
+                            d <= 87.07 ? "#A6D96A" :
+                                d <= 94.78 ? "#66BD63" :
+                                    "#1A9850" ;
+}
+//POP2010
+function getPopColor(d) {
+    return d <= 2690 ? "#D73027" :
+        d <= 3385 ? "#F46D43" :
+            d <= 3971 ? "#FDAE61" :
+                d <= 4513 ? "#FEE08B" :
+                    d <= 5017 ? "#FFFFBF" :
+                        d <= 5495 ? "#D9EF8B" :
+                            d <= 6198 ? "#A6D96A" :
+                                d <= 7323 ? "#66BD63" :
+                                    "#1A9850" ;
 }
 //END OF STYLE FUNCTIONS
 

@@ -29,25 +29,31 @@
 		<div class="row" id="CensusOverlayRow">
                     <h1>King County Census Tracts</h1>
                     <div class="form-check">
-                        <input type="radio" name="tract_display" id="popdens">
+                        <input type="radio" name="tract_display" id="popdens" value="popdens">
                         <label for="popdens">
                             Population Density
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="radio" name="tract_display" id="popwhite">
+                        <input type="radio" name="tract_display" id="popwhite" value="popwhite">
                         <label for="popwhite">
                             Percent White
                         </label>
                     </div>
 		    <div class="form-check">
-                        <input type="radio" name="tract_display" id="popmale">
+                        <input type="radio" name="tract_display" id="popmale" value="popmale">
                         <label for="popmale">
                             Percent Male
                         </label>
                     </div>
+			<div class="form-check">
+				<input type="radio" name="tract_display" id="POP2010" value="POP2010">
+				<label for="POP2010">
+					Raw Population
+				</label>
+			</div>
 		    <div class="form-check">
-                        <input type="radio" name="tract_display" id="default" checked>
+                        <input type="radio" name="tract_display" id="default" value="default "checked>
                         <label for="default">
                            No Data
                         </label>
