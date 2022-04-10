@@ -1,5 +1,6 @@
 /*778 Final Project*/
 //function to initialize the Leaflet map
+
 function createMap(){
     //create the map
     var mymap = L.map('mapid', {
@@ -22,6 +23,123 @@ function createMap(){
     getParkDistData(mymap);
     getTrailDistData(mymap);
 };
+
+function highlightFeature(e) {
+    var layer = e.target;
+
+    layer.setStyle({
+        weight: 5,
+        color: '#666',
+        dashArray: '',
+        fillOpacity: 0.7
+    });
+
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        layer.bringToFront();
+    }
+}
+function resetTractHighlight(e) {
+    var layer = e.target
+    layer.setStyle({
+        fillColor: "#d3d3d3",
+        weight: .2,
+        opacity: 1,
+        color: "#000000",
+        fillOpacity: 0.3
+    });
+}
+function resetDensHighlight(e) {
+    var layer = e.target
+    layer.setStyle({
+        fillColor: getDensColor(layer.feature.properties.log_dens),
+        weight: .2,
+        opacity: 1,
+        color: "#000000",
+        fillOpacity: 0.7
+    });
+}
+function resetWhiteHighlight(e) {
+    var layer = e.target
+    layer.setStyle({
+        fillColor: getWhiteColor(layer.feature.properties.PercWhite),
+        weight: .2,
+        opacity: 1,
+        color: "#000000",
+        fillOpacity: 0.7
+    });
+}
+function resetMaleHighlight(e) {
+    var layer = e.target
+    layer.setStyle({
+        fillColor: getMaleColor(layer.feature.properties.PercMale),
+        weight: .2,
+        opacity: 1,
+        color: "#000000",
+        fillOpacity: 0.7
+    });
+}
+function resetPopHighlight(e) {
+    var layer = e.target
+    layer.setStyle({
+        fillColor: getPopColor(layer.feature.properties.POP2010),
+        weight: .2,
+        opacity: 1,
+        color: "#000000",
+        fillOpacity: 0.7
+    });
+}
+function createPopup(e) {
+    var percMaleVal = Math.round(e.target.feature.properties.PercMale * 100)/100;
+    var percWhiteVal = Math.round(e.target.feature.properties.PercWhite * 100)/100;
+    var popDensVal = Math.round(e.target.feature.properties.PopDens * 1000000)/1000000;
+    var totalArea = Math.round(e.target.feature.properties.area * 0.00000038610 * 100 * 100)/100;
+    var parkArea = Math.round(e.target.feature.properties.park_area * 100)/100;
+    var trailDist = Math.round(e.target.feature.properties.tr_length * 100)/100;
+    var popupContent = "<p><b>Census Tract: </b>" + e.target.feature.properties.TRACT
+    + "</p><p>Total Population:  " + e.target.feature.properties.POP2010 +"</p>"
+        + "</p><p>Percent Male:  " + percMaleVal +"%</p>"
+        + "</p><p>Percent White:  " + percWhiteVal +"%</p>"
+        + "</p><p>Population Density:  " + popDensVal.toExponential() +" people/sq mi</p>"
+        + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
+        + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
+        + "</p><p>Trail Length:  " + trailDist +" mi</p>";
+    e.target.bindPopup(popupContent).openPopup()
+}
+function onEachTractFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetTractHighlight,
+        click: createPopup
+    });
+}
+function onEachDensFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetDensHighlight,
+        click: createPopup
+    });
+}
+function onEachWhiteFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetWhiteHighlight,
+        click: createPopup
+    });
+}
+function onEachMaleFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetMaleHighlight,
+        click: createPopup
+    });
+}
+function onEachPopFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetPopHighlight,
+        click: createPopup
+    });
+}
 
 //KING COUNTY PARK DATA FUNCTIONS
 function processParkData(data){
@@ -94,7 +212,6 @@ function createTrailSymbols(data, mymap, attributes){
         };
     });
 };
-
 //function to retrieve the park data and place it on the map
 function getTrailData(mymap){
     //load the data
@@ -105,7 +222,7 @@ function getTrailData(mymap){
 	    var attributes = processTrailData(response);
 
 	    //call function to add map add-ons
-          createTrailSymbols(response, mymap, attributes);
+            createTrailSymbols(response, mymap, attributes);
         }
     });
 };
@@ -122,14 +239,89 @@ function processTractData(data){
     console.log(attributes);
     return attributes;
 };
-
 //Add markers for features to the map
 function createTractSymbols(data, mymap, attributes){
     //create a Leaflet GeoJSON layer and add it to the map
     var tractLayer = L.geoJson(data, {
 	    style: style,
-	    onEachFeature: onEachFeature
+	    onEachFeature: onEachTractFeature
     }).addTo(mymap);
+    var densLayer = L.geoJson(data, {
+        style: densstyle,
+        onEachFeature: onEachDensFeature
+    });
+    var whiteLayer = L.geoJson(data, {
+        style: whitestyle,
+        onEachFeature: onEachWhiteFeature
+    });
+    var maleLayer = L.geoJson(data, {
+        style: malestyle,
+        onEachFeature: onEachMaleFeature
+    });
+    var popLayer = L.geoJson(data, {
+        style: popstyle,
+        onEachFeature: onEachPopFeature
+    });
+    $('#popdens').change(function() {
+        if (document.getElementById("popdens").checked == true) {
+            tractLayer.remove();
+            densLayer.remove();
+            whiteLayer.remove();
+            maleLayer.remove();
+            popLayer.remove();
+            densLayer.addTo(mymap);
+        } else if (document.getElementById("popdens").checked == false) {
+            densLayer.remove();
+        };
+    });
+    $('#popwhite').change(function() {
+        if (document.getElementById("popwhite").checked == true) {
+            tractLayer.remove();
+            densLayer.remove();
+            whiteLayer.remove();
+            maleLayer.remove();
+            popLayer.remove();
+            whiteLayer.addTo(mymap);
+        } else if (document.getElementById("popwhite").checked == false) {
+            whiteLayer.remove();
+        };
+    });
+    $('#popmale').change(function() {
+        if (document.getElementById("popmale").checked == true) {
+            tractLayer.remove();
+            densLayer.remove();
+            whiteLayer.remove();
+            maleLayer.remove();
+            popLayer.remove();
+            maleLayer.addTo(mymap);
+        } else if (document.getElementById("popmale").checked == false) {
+            maleLayer.remove();
+        };
+    });
+    $('#POP2010').change(function() {
+        if (document.getElementById("POP2010").checked == true) {
+            tractLayer.remove();
+            densLayer.remove();
+            whiteLayer.remove();
+            maleLayer.remove();
+            popLayer.remove();
+            popLayer.addTo(mymap);
+        } else if (document.getElementById("POP2010").checked == false) {
+            popLayer.remove();
+        };
+    });
+    $('#default').change(function() {
+        if (document.getElementById("default").checked == true) {
+            tractLayer.remove();
+            densLayer.remove();
+            whiteLayer.remove();
+            maleLayer.remove();
+            popLayer.remove();
+            tractLayer.addTo(mymap);
+        } else if (document.getElementById("default").checked == false) {
+            tractLayer.remove();
+        };
+    });
 };
 
 //function to retrieve the park data and place it on the map
@@ -164,7 +356,6 @@ function processParkDistData(data){
     console.log(attributes);
     return attributes;
 };
-
 //Add markers for features to the map
 function createParkDistSymbols(data, mymap, attributes){
     var parkDistLayer = L.geoJson(data, {
@@ -179,7 +370,6 @@ function createParkDistSymbols(data, mymap, attributes){
         };
     });
 };
-
 //function to retrieve the park data and place it on the map
 function getParkDistData(mymap){
     //load the data
@@ -194,7 +384,6 @@ function getParkDistData(mymap){
         }
     });
 };
-
 //KING COUNTY DISTANCE FROM TRAIL DATA FUNCTIONS
 function processTrailDistData(data){
     //empty array to hold attributes
@@ -212,7 +401,6 @@ function processTrailDistData(data){
     console.log(attributes);
     return attributes;
 };
-
 //Add markers for features to the map
 function createTrailDistSymbols(data, mymap, attributes){
     var attribute = attributes[0];
@@ -229,7 +417,6 @@ function createTrailDistSymbols(data, mymap, attributes){
         };
     });
 };
-
 //function to retrieve the park data and place it on the map
 function getTrailDistData(mymap){
     //load the data
@@ -249,46 +436,34 @@ function getTrailDistData(mymap){
 //FEATURE STYLE FUNCTIONS
 function parkstyle(feature) {
     return {
-        fillColor: "#98FB98",
+        fillColor: "#238B45",
         weight: .2,
         opacity: 1,
         color: "#006400",
         fillOpacity: 0.7
     };
 }
-
 function trailstyle(feature) {
     return {
         color: "#8b4513", 
 	  weight: .7
     };
 }
-
 function style(feature) {
     return {
         fillColor: "#d3d3d3",
         weight: .2,
         opacity: 1,
-        color: "#006400",
+        color: "#000000",
         fillOpacity: 0.3
     };
 }
-
 function densstyle(feature) {
     return {
         fillColor: getDensColor(feature.properties.log_dens),
         weight: .2,
         opacity: 1,
-        color: "#006400",
-        fillOpacity: 0.7
-    };
-}
-function malestyle(feature) {
-    return {
-        fillColor: getMaleColor(feature.properties.PercMale),
-        weight: .2,
-        opacity: 1,
-        color: "#006400",
+        color: "#000000",
         fillOpacity: 0.7
     };
 }
@@ -297,7 +472,16 @@ function whitestyle(feature) {
         fillColor: getWhiteColor(feature.properties.PercWhite),
         weight: .2,
         opacity: 1,
-        color: "#006400",
+        color: "#000000",
+        fillOpacity: 0.7
+    };
+}
+function malestyle(feature) {
+    return {
+        fillColor: getMaleColor(feature.properties.PercMale),
+        weight: .2,
+        opacity: 1,
+        color: "#000000",
         fillOpacity: 0.7
     };
 }
@@ -306,18 +490,17 @@ function popstyle(feature) {
         fillColor: getPopColor(feature.properties.POP2010),
         weight: .2,
         opacity: 1,
-        color: "#006400",
+        color: "#000000",
         fillOpacity: 0.7
     };
 }
-
 function diststyle(feature) {
     return {
         fillColor: getDistColor(feature.properties.dist),
         weight: .2,
         opacity: 1,
-        color: "black",
-        fillOpacity: 0.4
+        color: "#000000",
+        fillOpacity: 0.7
     };
 }
 
@@ -336,27 +519,27 @@ function getDistColor(d) {
 }
 //Density
 function getDensColor(d) {
-    return d <= -6.198 ? "#D73027" :
-        d <= -4.301 ? "#F46D43" :
-            d <= -3.356 ? "#FDAE61" :
-                d <= -2.677 ? "#FEE08B" :
+    return d <= -6.198 ? "#1A9850" :
+        d <= -4.301 ? "#66BD63" :
+            d <= -3.356 ? "#A6D96A" :
+                d <= -2.677 ? "#D9EF8B" :
                     d <= -2.273 ? "#FFFFBF" :
-                        d <= -1.684 ? "#D9EF8B" :
-                            d <= -0.514 ? "#A6D96A" :
-                                d <= 1.843 ? "#66BD63" :
-                                    "#1A9850" ;
+                        d <= -1.684 ? "#FEE08B" :
+                            d <= -0.514 ? "#FDAE61" :
+                                d <= 1.843 ? "#F46D43" :
+                                    "#D73027" ;
 }
 //Male
 function getMaleColor(d) {
-    return d <= 46.96 ? "#D73027" :
-        d <= 48.23 ? "#F46D43" :
-            d <= 49.14 ? "#FDAE61" :
-                d <= 49.92 ? "#FEE08B" :
-                    d <= 50.75 ? "#FFFFBF" :
-                        d <= 52.05 ? "#D9EF8B" :
-                            d <= 59.29 ? "#A6D96A" :
-                                d <= 67.34 ? "#66BD63" :
-                                    "#1A9850" ;
+    return d <= 46.96 ? "#FFFFD9" :
+        d <= 48.23 ? "#EDF8B1" :
+            d <= 49.14 ? "#C7E9B4" :
+                d <= 49.92 ? "#7FCDBB" :
+                    d <= 50.75 ? "#41B6C4" :
+                        d <= 52.05 ? "#1D91C0" :
+                            d <= 59.29 ? "#225EA8" :
+                                d <= 67.34 ? "#253494" :
+                                    "#081D58" ;
 }
 //White
 function getWhiteColor(d) {
@@ -372,43 +555,17 @@ function getWhiteColor(d) {
 }
 //POP2010
 function getPopColor(d) {
-    return d <= 2690 ? "#D73027" :
-        d <= 3385 ? "#F46D43" :
-            d <= 3971 ? "#FDAE61" :
-                d <= 4513 ? "#FEE08B" :
-                    d <= 5017 ? "#FFFFBF" :
-                        d <= 5495 ? "#D9EF8B" :
-                            d <= 6198 ? "#A6D96A" :
-                                d <= 7323 ? "#66BD63" :
-                                    "#1A9850" ;
+    return d <= 2690 ? "#FFFFCC" :
+        d <= 3385 ? "#FFEDA0" :
+            d <= 3971 ? "#FED976" :
+                d <= 4513 ? "#FEB24C" :
+                    d <= 5017 ? "#FD8D3C" :
+                        d <= 5495 ? "#FC4E2A" :
+                            d <= 6198 ? "#E31A1C" :
+                                d <= 7323 ? "#BD0026" :
+                                    "#800026" ;
 }
 //END OF STYLE FUNCTIONS
-
-function onEachFeature(feature, layer, geojson, mymap) {
-    layer.on({
-        mouseover: function highlightFeature(e) {
-            var layer = e.target;
-
-            layer.setStyle({
-                weight: 1,
-                color: '#666',
-                dashArray: '',
-                fillOpacity: 0.5
-            });
-
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                layer.bringToFront();
-            }
-        },
-        mouseout: function resetHighlight(e){
-            geojson.resetStyle(e.target);
-        },
-        click: function zoomToFeature(e) {
-            mymap.fitBounds(e.target.getBounds());
-        }
-    });
-}
-
 
 $(document).ready(() => {
     $('#modal').modal('show');
