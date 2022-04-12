@@ -24,6 +24,8 @@ function createMap(){
     getTrailDistData(mymap);
 };
 
+//functions for within each onEachFeature function
+//highlight selected feature -- same for all
 function highlightFeature(e) {
     var layer = e.target;
 
@@ -38,6 +40,7 @@ function highlightFeature(e) {
         layer.bringToFront();
     }
 }
+//resetting highlight
 function resetTractHighlight(e) {
     var layer = e.target
     layer.setStyle({
@@ -78,6 +81,16 @@ function resetMaleHighlight(e) {
         fillOpacity: 0.7
     });
 }
+function resetIncomeHighlight(e) {
+    var layer = e.target
+    layer.setStyle({
+        fillColor: getIncomeColor(layer.feature.properties.med_income),
+        weight: .2,
+        opacity: 1,
+        color: "#000000",
+        fillOpacity: 0.7
+    });
+}
 function resetPopHighlight(e) {
     var layer = e.target
     layer.setStyle({
@@ -88,6 +101,7 @@ function resetPopHighlight(e) {
         fillOpacity: 0.7
     });
 }
+//differentiating popups for each display choice
 function createPopup(e) {
     var percMaleVal = Math.round(e.target.feature.properties.PercMale * 100)/100;
     var percWhiteVal = Math.round(e.target.feature.properties.PercWhite * 100)/100;
@@ -95,16 +109,82 @@ function createPopup(e) {
     var totalArea = Math.round(e.target.feature.properties.area * 0.00000038610 * 100 * 100)/100;
     var parkArea = Math.round(e.target.feature.properties.park_area * 100)/100;
     var trailDist = Math.round(e.target.feature.properties.tr_length * 100)/100;
-    var popupContent = "<p><b>Census Tract: </b>" + e.target.feature.properties.TRACT
+    var medIncome = e.target.feature.properties.med_income;
+    var popupContent = "<p><b>Census Tract ID: </b>" + e.target.feature.properties.TRACT
     + "</p><p>Total Population:  " + e.target.feature.properties.POP2010 +"</p>"
         + "</p><p>Percent Male:  " + percMaleVal +"%</p>"
         + "</p><p>Percent White:  " + percWhiteVal +"%</p>"
+        + "</p><p>Population Density:  " + popDensVal.toExponential() +" people/sq mi</p>"
+        + "</p><p>Median Income:  " + medIncome +" $/person/year"
+        + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
+        + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
+        + "</p><p>Trail Length:  " + trailDist +" mi</p>";
+    e.target.bindPopup(popupContent).openPopup()
+}
+function createDensPopup(e) {
+    var popDensVal = Math.round(e.target.feature.properties.PopDens * 1000000)/1000000;
+    var totalArea = Math.round(e.target.feature.properties.area * 0.00000038610 * 100 * 100)/100;
+    var parkArea = Math.round(e.target.feature.properties.park_area * 100)/100;
+    var trailDist = Math.round(e.target.feature.properties.tr_length * 100)/100;
+    var popupContent = "<p><b>Census Tract ID: </b>" + e.target.feature.properties.TRACT
+        + "</p><p>Total Population:  " + e.target.feature.properties.POP2010 +"</p>"
         + "</p><p>Population Density:  " + popDensVal.toExponential() +" people/sq mi</p>"
         + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
         + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
         + "</p><p>Trail Length:  " + trailDist +" mi</p>";
     e.target.bindPopup(popupContent).openPopup()
 }
+function createWhitePopup(e) {
+    var percWhiteVal = Math.round(e.target.feature.properties.PercWhite * 100)/100;
+    var totalArea = Math.round(e.target.feature.properties.area * 0.00000038610 * 100 * 100)/100;
+    var parkArea = Math.round(e.target.feature.properties.park_area * 100)/100;
+    var trailDist = Math.round(e.target.feature.properties.tr_length * 100)/100;
+    var popupContent = "<p><b>Census Tract ID: </b>" + e.target.feature.properties.TRACT
+        + "</p><p>Total Population:  " + e.target.feature.properties.POP2010 +"</p>"
+        + "</p><p>Percent White:  " + percWhiteVal +"%</p>"
+        + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
+        + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
+        + "</p><p>Trail Length:  " + trailDist +" mi</p>";
+    e.target.bindPopup(popupContent).openPopup()
+}
+function createMalePopup(e) {
+    var percMaleVal = Math.round(e.target.feature.properties.PercMale * 100)/100;
+    var totalArea = Math.round(e.target.feature.properties.area * 0.00000038610 * 100 * 100)/100;
+    var parkArea = Math.round(e.target.feature.properties.park_area * 100)/100;
+    var trailDist = Math.round(e.target.feature.properties.tr_length * 100)/100;
+    var popupContent = "<p><b>Census Tract ID: </b>" + e.target.feature.properties.TRACT
+        + "</p><p>Total Population:  " + e.target.feature.properties.POP2010 +"</p>"
+        + "</p><p>Percent Male:  " + percMaleVal +"%</p>"
+        + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
+        + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
+        + "</p><p>Trail Length:  " + trailDist +" mi</p>";
+    e.target.bindPopup(popupContent).openPopup()
+}
+function createIncomePopup(e) {
+    var medIncome = e.target.feature.properties.med_income;
+    var totalArea = Math.round(e.target.feature.properties.area * 0.00000038610 * 100 * 100)/100;
+    var parkArea = Math.round(e.target.feature.properties.park_area * 100)/100;
+    var trailDist = Math.round(e.target.feature.properties.tr_length * 100)/100;
+    var popupContent = "<p><b>Census Tract ID: </b>" + e.target.feature.properties.TRACT
+        + "</p><p>Total Population:  " + e.target.feature.properties.POP2010 +"</p>"
+        + "</p><p>Median Income:  " + medIncome +" $/person/year</p>"
+        + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
+        + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
+        + "</p><p>Trail Length:  " + trailDist +" mi</p>";
+    e.target.bindPopup(popupContent).openPopup()
+}
+function createPopPopup(e) {
+    var totalArea = Math.round(e.target.feature.properties.area * 0.00000038610 * 100 * 100)/100;
+    var parkArea = Math.round(e.target.feature.properties.park_area * 100)/100;
+    var trailDist = Math.round(e.target.feature.properties.tr_length * 100)/100;
+    var popupContent = "<p><b>Census Tract ID: </b>" + e.target.feature.properties.TRACT
+        + "</p><p>Total Population:  " + e.target.feature.properties.POP2010 +"</p>"
+        + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
+        + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
+        + "</p><p>Trail Length:  " + trailDist +" mi</p>";
+    e.target.bindPopup(popupContent).openPopup()
+}
+//individual onEachFeature functions
 function onEachTractFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
@@ -116,28 +196,35 @@ function onEachDensFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetDensHighlight,
-        click: createPopup
+        click: createDensPopup
     });
 }
 function onEachWhiteFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetWhiteHighlight,
-        click: createPopup
+        click: createWhitePopup
     });
 }
 function onEachMaleFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetMaleHighlight,
-        click: createPopup
+        click: createMalePopup
+    });
+}
+function onEachIncomeFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetIncomeHighlight,
+        click: createIncomePopup
     });
 }
 function onEachPopFeature(feature, layer) {
     layer.on({
         mouseover: highlightFeature,
         mouseout: resetPopHighlight,
-        click: createPopup
+        click: createPopPopup
     });
 }
 
@@ -157,7 +244,7 @@ function processParkData(data){
     return attributes;
 };
 //Add markers for features to the map
-function createParkSymbols(data, mymap, attributes){
+function createParkSymbols(data, mymap){
      var parkLayer = L.geoJson(data, {
            style: parkstyle
         }).addTo(mymap);
@@ -200,7 +287,7 @@ function processTrailData(data){
     return attributes;
 };
 //Add markers for features to the map
-function createTrailSymbols(data, mymap, attributes){
+function createTrailSymbols(data, mymap){
     var trailLayer = L.geoJson(data, {
         style: trailstyle
     }).addTo(mymap);
@@ -227,6 +314,82 @@ function getTrailData(mymap){
     });
 };
 
+//create legends -- no legend for default display
+var densLegend = L.control({position: 'bottomright'});
+densLegend.onAdd = function (mymap) {
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [-10, -6.198, -4.301, -3.356, -2.677, -2.273, -1.684, -0.514, 1.843],
+        labels = ['<strong> Population Density </strong>' + '<br>' + 'expressed as the log of raw denisty'];
+    div.innerHTML = labels.join('<br>') + ' <br>';
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getDensColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? " "+'&ndash;' + " " + grades[i + 1] + ' <br>' : '+');
+    }
+    return div;
+};
+//white legend
+var whiteLegend = L.control({position: 'bottomright'});
+whiteLegend.onAdd = function (mymap) {
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 30.88, 47.33, 57.26, 65.59, 75.07, 80.98, 87.07, 94.78],
+        labels = ['<strong> % White Population </strong>'];
+    div.innerHTML = labels.join('<br>') + ' <br>';
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getWhiteColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? " "+'&ndash;' + " " + grades[i + 1] + ' <br>' : '+');
+    }
+    return div;
+};
+//male legend
+var maleLegend = L.control({position: 'bottomright'});
+maleLegend.onAdd = function (mymap) {
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 46.96, 48.23, 49.14, 49.92, 50.75, 52.05, 59.29, 67.34],
+        labels = ['<strong> % Male Population </strong>'];
+    div.innerHTML = labels.join('<br>') + ' <br>';
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getMaleColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? " "+'&ndash;' + " " + grades[i + 1] + ' <br>' : '+');
+    }
+    return div;
+};
+//median income legend
+var incomeLegend = L.control({position: 'bottomright'});
+incomeLegend.onAdd = function (mymap) {
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [10000, 20000, 40000, 60000, 80000, 100000, 120000, 140000, 160000, 180000],
+        labels = ['<strong> Median Annual Income </strong>' + '<br>' + '$/person' + '<br>' + 'no-data tracts represented in red'];
+    div.innerHTML = labels.join('<br>') + ' <br>';
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getIncomeColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? " "+'&ndash;' + " " + grades[i + 1] + ' <br>' : '+');
+    }
+    return div;
+};
+//raw population legend
+var popLegend = L.control({position: 'bottomright'});
+popLegend.onAdd = function (mymap) {
+    var div = L.DomUtil.create('div', 'info legend'),
+        grades = [0, 2690, 3385, 3971, 4513, 5017, 5495, 6198, 7323],
+        labels = ['<strong> 2010 Tract Population </strong>'];
+    div.innerHTML = labels.join('<br>') + ' <br>';
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getPopColor(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? " "+'&ndash;' + " " + grades[i + 1] + ' <br>' : '+');
+    }
+    return div;
+};
+
 //KING COUNTY CENSUS TRACT DATA FUNCTIONS
 function processTractData(data){
     //empty array to hold attributes
@@ -240,7 +403,7 @@ function processTractData(data){
     return attributes;
 };
 //Add markers for features to the map
-function createTractSymbols(data, mymap, attributes){
+function createTractSymbols(data, mymap){
     //create a Leaflet GeoJSON layer and add it to the map
     var tractLayer = L.geoJson(data, {
 	    style: style,
@@ -258,6 +421,10 @@ function createTractSymbols(data, mymap, attributes){
         style: malestyle,
         onEachFeature: onEachMaleFeature
     });
+    var incomeLayer = L.geoJson(data, {
+        style: incomestyle,
+        onEachFeature: onEachIncomeFeature
+    });
     var popLayer = L.geoJson(data, {
         style: popstyle,
         onEachFeature: onEachPopFeature
@@ -268,10 +435,18 @@ function createTractSymbols(data, mymap, attributes){
             densLayer.remove();
             whiteLayer.remove();
             maleLayer.remove();
+            incomeLayer.remove();
             popLayer.remove();
             densLayer.addTo(mymap);
+            densLegend.remove();
+            whiteLegend.remove();
+            maleLegend.remove();
+            incomeLegend.remove();
+            popLegend.remove();
+            densLegend.addTo(mymap);
         } else if (document.getElementById("popdens").checked == false) {
             densLayer.remove();
+            densLegend.remove();
         };
     });
     $('#popwhite').change(function() {
@@ -280,10 +455,18 @@ function createTractSymbols(data, mymap, attributes){
             densLayer.remove();
             whiteLayer.remove();
             maleLayer.remove();
+            incomeLayer.remove();
             popLayer.remove();
             whiteLayer.addTo(mymap);
+            densLegend.remove();
+            whiteLegend.remove();
+            maleLegend.remove();
+            incomeLegend.remove();
+            popLegend.remove();
+            whiteLegend.addTo(mymap);
         } else if (document.getElementById("popwhite").checked == false) {
             whiteLayer.remove();
+            whiteLegend.remove();
         };
     });
     $('#popmale').change(function() {
@@ -292,10 +475,38 @@ function createTractSymbols(data, mymap, attributes){
             densLayer.remove();
             whiteLayer.remove();
             maleLayer.remove();
+            incomeLayer.remove();
             popLayer.remove();
             maleLayer.addTo(mymap);
+            densLegend.remove();
+            whiteLegend.remove();
+            maleLegend.remove();
+            incomeLegend.remove();
+            popLegend.remove();
+            maleLegend.addTo(mymap);
         } else if (document.getElementById("popmale").checked == false) {
             maleLayer.remove();
+            maleLegend.remove();
+        };
+    });
+    $('#medincome').change(function() {
+        if (document.getElementById("medincome").checked == true) {
+            tractLayer.remove();
+            densLayer.remove();
+            whiteLayer.remove();
+            maleLayer.remove();
+            incomeLayer.remove();
+            popLayer.remove();
+            incomeLayer.addTo(mymap);
+            densLegend.remove();
+            whiteLegend.remove();
+            maleLegend.remove();
+            incomeLegend.remove();
+            popLegend.remove();
+            incomeLegend.addTo(mymap);
+        } else if (document.getElementById("POP2010").checked == false) {
+            incomeLayer.remove();
+            incomeLegend.remove();
         };
     });
     $('#POP2010').change(function() {
@@ -304,10 +515,18 @@ function createTractSymbols(data, mymap, attributes){
             densLayer.remove();
             whiteLayer.remove();
             maleLayer.remove();
+            incomeLayer.remove();
             popLayer.remove();
             popLayer.addTo(mymap);
+            densLegend.remove();
+            whiteLegend.remove();
+            maleLegend.remove();
+            incomeLegend.remove();
+            popLegend.remove();
+            popLegend.addTo(mymap);
         } else if (document.getElementById("POP2010").checked == false) {
             popLayer.remove();
+            popLegend.remove();
         };
     });
     $('#default').change(function() {
@@ -316,8 +535,14 @@ function createTractSymbols(data, mymap, attributes){
             densLayer.remove();
             whiteLayer.remove();
             maleLayer.remove();
+            incomeLayer.remove();
             popLayer.remove();
             tractLayer.addTo(mymap);
+            densLegend.remove();
+            whiteLegend.remove();
+            maleLegend.remove();
+            incomeLegend.remove();
+            popLegend.remove();
         } else if (document.getElementById("default").checked == false) {
             tractLayer.remove();
         };
@@ -327,7 +552,7 @@ function createTractSymbols(data, mymap, attributes){
 //function to retrieve the park data and place it on the map
 function getTractData(mymap){
     //load the data
-    $.ajax("data/census_tract.geojson", {
+    $.ajax("data/census_tract_formatted.geojson", {
         dataType: "json",
         success: function(response){
 	    //create an attributes array
@@ -357,7 +582,7 @@ function processParkDistData(data){
     return attributes;
 };
 //Add markers for features to the map
-function createParkDistSymbols(data, mymap, attributes){
+function createParkDistSymbols(data, mymap){
     var parkDistLayer = L.geoJson(data, {
         style: diststyle
     }).addTo(mymap);
@@ -403,8 +628,6 @@ function processTrailDistData(data){
 };
 //Add markers for features to the map
 function createTrailDistSymbols(data, mymap, attributes){
-    var attribute = attributes[0];
-    console.log(attribute["dist"]);
     var trailDistLayer = L.geoJson(data, {
         style: diststyle
     }).addTo(mymap);
@@ -485,6 +708,15 @@ function malestyle(feature) {
         fillOpacity: 0.7
     };
 }
+function incomestyle(feature) {
+    return {
+        fillColor: getIncomeColor(feature.properties.med_income),
+        weight: .2,
+        opacity: 1,
+        color: "#000000",
+        fillOpacity: 0.7
+    };
+}
 function popstyle(feature) {
     return {
         fillColor: getPopColor(feature.properties.POP2010),
@@ -543,15 +775,29 @@ function getMaleColor(d) {
 }
 //White
 function getWhiteColor(d) {
-    return d <= 30.88 ? "#D73027" :
-        d <= 47.33 ? "#F46D43" :
-            d <= 57.26 ? "#FDAE61" :
-                d <= 65.59 ? "#FEE08B" :
-                    d <= 75.07 ? "#FFFFBF" :
-                        d <= 80.98 ? "#D9EF8B" :
-                            d <= 87.07 ? "#A6D96A" :
-                                d <= 94.78 ? "#66BD63" :
-                                    "#1A9850" ;
+    return d <= 30.88 ? "#4D004B" :
+        d <= 47.33 ? "#810F7C" :
+            d <= 57.26 ? "#88419D" :
+                d <= 65.59 ? "#8C6BB1" :
+                    d <= 75.07 ? "#8C96C6" :
+                        d <= 80.98 ? "#9EBCDA" :
+                            d <= 87.07 ? "#BFD3E6" :
+                                d <= 94.78 ? "#E0ECF4" :
+                                    "#F7FCFD" ;
+}
+//Median Income
+function getIncomeColor(d) {
+    return d == 0 ? "#CB181D" :
+        d <= 20000 ? "#FFFFE5" :
+            d <= 40000 ? "#F7FCB9" :
+                d <= 60000 ? "#D9F0A3" :
+                    d <= 80000 ? "#ADDD8E" :
+                        d <= 100000 ? "#78C679" :
+                            d <= 120000 ? "#41AB5D" :
+                                d <= 140000 ? "#238443" :
+                                    d<= 160000 ? "#006837" :
+                                        d <= 180000 ? "#004529" :
+                                            "#000000" ;
 }
 //POP2010
 function getPopColor(d) {
@@ -571,6 +817,9 @@ $(document).ready(() => {
     $('#modal').modal('show');
     $('#MybtnModal').click(function(){
 	$('#modal').modal('show')
+    });
+    $('#MybtnInfoModal').click(function(){
+        $('#infomodal').modal('show')
     });
     createMap();
 });

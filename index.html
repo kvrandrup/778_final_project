@@ -27,8 +27,8 @@
 <body>
 	<div id="panel">
 		<div class="row" id="CensusOverlayRow">
-                    <h1>King County Census Tracts</h1>
-                    <div class="form-check">
+			<h1>King County Census Tracts</h1>
+			<div class="form-check">
                         <input type="radio" name="tract_display" id="popdens" value="popdens">
                         <label for="popdens">
                             Population Density
@@ -47,6 +47,12 @@
                         </label>
                     </div>
 			<div class="form-check">
+				<input type="radio" name="tract_display" id="medincome" value="medincome">
+				<label for="medincome">
+					Median Income
+				</label>
+			</div>
+			<div class="form-check">
 				<input type="radio" name="tract_display" id="POP2010" value="POP2010">
 				<label for="POP2010">
 					Raw Population
@@ -60,9 +66,9 @@
                     </div>
 		</div>
 		<div class="row" id="ParkOverlayRow">
-                    <h1>King County Parks and Trails</h1>
-                    <div class="form-check">
-                        <input type="checkbox" name="background_layer" id="parks" checked>
+			<h1>King County Parks and Trails</h1>
+			<div class="form-check">
+				<input type="checkbox" name="background_layer" id="parks" checked>
                         <label for="parks">
                             Parks
                         </label>
@@ -91,8 +97,10 @@
 		</div>
 		<div class="emptyDivClass"></div>
 		<button id="MybtnModal" class="mainbutton" data-toggle="modal">Project Background and Intention</button>
+		<p></p><p></p><p></p><p></p>
+		<button id="MybtnInfoModal" class="mainbutton" data-toggle="modal">References</button>
 	</div>
-	<!--MODAL -->
+	<!--MODAL-->
 	<div class="modal fade" id="modal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -104,20 +112,52 @@
 					<h1>With this project, I hope to highlight the disparity in access to green space and
 					parks within King County as it related to population demographics, especially in 
 					terms of gender and race. <p></p>
-					King County has 846.63 sq mi of park and 1,810.93 miles of trail, in and out of the city. The access
+					King County has 846.63 sq mi of park and 1,810.93 miles of trail. These measures are not entirely
+						inclusive of all the existing trail and park in the county, but includes all recognized park and
+						open space area in the county and maintained trails; thus these trails do not include unmaintained
+						trails, unofficial trails, or paths and roads that are otherwise commonly used. The access
 					to these parks and trails should be, theoretically, reflective of the overall makeup of the county; 
 					King County is 69.5% white and 50.2% female. This is an even gender split and a higher racial diversity
 					than most other counties in Washington. <p></p>
 					Based on personal experience, I know the representation in these spaces is not representative of 
-					the overall population. I hope for this project to be informative to outdoor enthusiasts and city 
-					planners within King County. Outlining the disparity is the first step towards making the 
-					outdoors a more equitable space. <p></p>
+					the overall population. In measured studies, it is estimated that participation in trail running in
+						2020 was 77% male and only 23% female <sup>1</sup>. In a subset of that, 66% of ultramarathon
+						finishes in 2021 were by men and only 33% by women <sup>2</sup>. More broadly, running as a whole
+						is estimated to be a 90% Caucasian sport, measured by race participation demographics <sup>3</sup>.
+						These estimates of trail and running participation are a proxy for overall participation in the
+						outdoor space; they are not a direct representation, but do highlight the existing disparity and
+						skewed access. I hope for this project to be informative to outdoor enthusiasts and city planners
+						within King County. Outlining the disparity is the first step towards making the outdoors a more
+						equitable space. <p></p>
 					Select between Census Tract options to view different demographic breakdowns and turn on or off 
 					park areas and trails with the buttons below.</h1>
 					<button type="close" class="close" data-dismiss="modal">Close</button> 
 				</div>   
 			</div>                                                                       
 		</div>                                      
+	</div>
+	<!--References Modal-->
+	<div class="modal fade" id="infomodal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title">References</h2>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<div class="modal-body">
+					<h2>Data References</h2>
+					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/consolidated-demographics-index-for-king-county-census-tracts-demographic-index-area/explore">Income Data</a></h1>
+					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/parks-in-king-county-park-area/explore">King County Parks</a></h1>
+					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/kingcounty::trails-in-king-county-trail-line/explore">King County Trails</a></h1>
+					<h1>King County Census Data</h1>
+					<h2>Background References</h2>
+					<h1>1. <a href="https://www.livestrong.com/article/13730338-running-statistics/">126 Running Statistics, Live Strong</a></h1>
+					<h1>2. <a href="https://subscriber.ultrarunning.com/archive/article/2021-year-in-review/guest">2021 Year in Review, UltrarunningMagazine</a></h1>
+					<h1>3. <a href="https://www.runnersworld.com/runners-stories/a20807821/why-is-running-so-white/">Why is Running so White?, Runner's World</a></h1>
+					<button type="close" class="close" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div id="mapid"></div>
 </body>
