@@ -131,7 +131,7 @@ h2 {
 }
 
 .emptyDivClass {
-   padding: 115px 30px; // blank div(or blank space) height and width. Depends on you.
+   padding: 90px 30px; // blank div(or blank space) height and width. Depends on you.
    position: absolute; // so that you can place the blank div(or blank space) wherever you want it. Make sure you have a "position: relative;" div. Absolute div must be inside a Relative div.
    top: 0; // Depends on you.
    left: 0; // Depends on you.

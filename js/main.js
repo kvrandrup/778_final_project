@@ -115,7 +115,7 @@ function createPopup(e) {
         + "</p><p>Percent Male:  " + percMaleVal +"%</p>"
         + "</p><p>Percent White:  " + percWhiteVal +"%</p>"
         + "</p><p>Population Density:  " + popDensVal.toExponential() +" people/sq mi</p>"
-        + "</p><p>Median Income:  " + medIncome +" $/person/year"
+        + "</p><p>Median Income:  " + medIncome +" $/household/year"
         + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
         + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
         + "</p><p>Trail Length:  " + trailDist +" mi</p>";
@@ -167,7 +167,7 @@ function createIncomePopup(e) {
     var trailDist = Math.round(e.target.feature.properties.tr_length * 100)/100;
     var popupContent = "<p><b>Census Tract ID: </b>" + e.target.feature.properties.TRACT
         + "</p><p>Total Population:  " + e.target.feature.properties.POP2010 +"</p>"
-        + "</p><p>Median Income:  " + medIncome +" $/person/year</p>"
+        + "</p><p>Median Income:  " + medIncome +" $/household/year</p>"
         + "</p><p>Total Area:  " + totalArea +" sq mi</p>"
         + "</p><p>Park Area:  " + parkArea +" sq mi</p>"
         + "</p><p>Trail Length:  " + trailDist +" mi</p>";
@@ -364,7 +364,7 @@ var incomeLegend = L.control({position: 'bottomright'});
 incomeLegend.onAdd = function (mymap) {
     var div = L.DomUtil.create('div', 'info legend'),
         grades = [10000, 20000, 40000, 60000, 80000, 100000, 120000, 140000, 160000, 180000],
-        labels = ['<strong> Median Annual Income </strong>' + '<br>' + '$/person' + '<br>' + 'no-data tracts represented in red'];
+        labels = ['<strong> Median Annual Income </strong>' + '<br>' + '$/household' + '<br>' + 'no-data tracts represented in red'];
     div.innerHTML = labels.join('<br>') + ' <br>';
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
@@ -820,6 +820,9 @@ $(document).ready(() => {
     });
     $('#MybtnInfoModal').click(function(){
         $('#infomodal').modal('show')
+    });
+    $('#MybtnResultsModal').click(function(){
+        $('#resultsmodal').modal('show')
     });
     createMap();
 });

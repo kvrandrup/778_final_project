@@ -99,6 +99,8 @@
 		<button id="MybtnModal" class="mainbutton" data-toggle="modal">Project Background and Intention</button>
 		<p></p><p></p><p></p><p></p>
 		<button id="MybtnInfoModal" class="mainbutton" data-toggle="modal">References</button>
+		<p></p><p></p><p></p><p></p>
+		<button id="MybtnResultsModal" class="mainbutton" data-toggle="modal">Regression Results</button>
 	</div>
 	<!--MODAL-->
 	<div class="modal fade" id="modal">
@@ -130,7 +132,11 @@
 						within King County. Outlining the disparity is the first step towards making the outdoors a more
 						equitable space. <p></p>
 					Select between Census Tract options to view different demographic breakdowns and turn on or off 
-					park areas and trails with the buttons below.</h1>
+					park areas and trails with the buttons below. Turn on or off the "distance from" layers to view an
+					overlay of the distance from parks or trails in any given location in King County. Below, you may
+					find a list of data sources and references as well as raw basic regression results. The results are
+					raw and not largely insignificant, but interesting to glance over if you are familiar in regression
+					methods. </h1>
 					<button type="close" class="close" data-dismiss="modal">Close</button> 
 				</div>   
 			</div>                                                                       
@@ -146,14 +152,35 @@
 				</div>
 				<div class="modal-body">
 					<h2>Data References</h2>
-					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/consolidated-demographics-index-for-king-county-census-tracts-demographic-index-area/explore">Income Data</a></h1>
-					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/parks-in-king-county-park-area/explore">King County Parks</a></h1>
-					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/kingcounty::trails-in-king-county-trail-line/explore">King County Trails</a></h1>
+					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/consolidated-demographics-index-for-king-county-census-tracts-demographic-index-area/explore" target="_blank">Income Data</a></h1>
+					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/parks-in-king-county-park-area/explore" target="_blank">King County Parks</a></h1>
+					<h1><a href="https://gis-kingcounty.opendata.arcgis.com/datasets/kingcounty::trails-in-king-county-trail-line/explore" target="_blank">King County Trails</a></h1>
 					<h1>King County Census Data</h1>
 					<h2>Background References</h2>
-					<h1>1. <a href="https://www.livestrong.com/article/13730338-running-statistics/">126 Running Statistics, Live Strong</a></h1>
-					<h1>2. <a href="https://subscriber.ultrarunning.com/archive/article/2021-year-in-review/guest">2021 Year in Review, UltrarunningMagazine</a></h1>
-					<h1>3. <a href="https://www.runnersworld.com/runners-stories/a20807821/why-is-running-so-white/">Why is Running so White?, Runner's World</a></h1>
+					<h1>1. <a href="https://www.livestrong.com/article/13730338-running-statistics/" target="_blank">126 Running Statistics, Live Strong</a></h1>
+					<h1>2. <a href="https://subscriber.ultrarunning.com/archive/article/2021-year-in-review/guest" target="_blank">2021 Year in Review, UltrarunningMagazine</a></h1>
+					<h1>3. <a href="https://www.runnersworld.com/runners-stories/a20807821/why-is-running-so-white/" target="_blank">Why is Running so White?, Runner's World</a></h1>
+					<button type="close" class="close" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Results Modal-->
+	<div class="modal fade" id="resultsmodal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2 class="modal-title">Regression Analysis</h2>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+				<div class="modal-body">
+					<h2>Regression Results</h2>
+					<h1><a type="application/txt" href="lib/explanatory_output.txt" target="_blank">Exploratory Regression</a></h1>
+					<h1><a type="application/pdf" href="lib/OLS_output_all.pdf" target="_blank">Ordinary Least Squares Linear Regression: all variables</a></h1>
+					<h1><a type="application/pdf" href="lib/OLS_output_population.pdf" target="_blank">Ordinary Least Squares Linear Regression: raw population</a></h1>
+					<h1><a type="application/pdf" href="lib/OLS_output_density_raw.pdf" target="_blank">Ordinary Least Squares Linear Regression: population density</a></h1>
+					<h1><a type="application/pdf" href="lib/OLS_output_white.pdf" target="_blank">Ordinary Least Squares Linear Regression: percent white</a></h1>
+					<h1><a type="application/pdf" href="lib/OLS_output_income.pdf" target="_blank">Ordinary Least Squares Linear Regression: median income</a></h1>
 					<button type="close" class="close" data-dismiss="modal">Close</button>
 				</div>
 			</div>

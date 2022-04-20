@@ -1,0 +1,92 @@
+******************************************************************************
+Choose 1 of 4 Summary
+                Highest Adjusted R-Squared Results                
+AdjR2    AICc   JB K(BP)  VIF   SA   Model                              
+ 0.01 2727.45 0.00  0.15 1.00 0.00  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**
+ 0.01 2728.53 0.00  0.33 1.00 0.00  -KINGCOUNTY_CENSUSBLOCKS.POPDENS*   
+ 0.00 2730.16 0.00  0.25 1.00 0.00  +KINGCOUNTY_CENSUSBLOCKS.POP2010    
+       Passing Models       
+AdjR2 AICc JB K(BP) VIF SA   Model
+******************************************************************************
+Choose 2 of 4 Summary
+                                  Highest Adjusted R-Squared Results                                 
+AdjR2    AICc   JB K(BP)  VIF   SA   Model                                                                 
+ 0.01 2726.63 0.00  0.25 1.01 0.00  -KINGCOUNTY_CENSUSBLOCKS.POPDENS*  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**
+ 0.01 2726.86 0.00  0.15 1.01 0.00  +KINGCOUNTY_CENSUSBLOCKS.POP2010  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE** 
+ 0.01 2728.68 0.00  0.33 1.00 0.00  +KINGCOUNTY_CENSUSBLOCKS.POP2010  -KINGCOUNTY_CENSUSBLOCKS.POPDENS*    
+       Passing Models       
+AdjR2 AICc JB K(BP) VIF SA   Model
+******************************************************************************
+Choose 3 of 4 Summary
+                                                  Highest Adjusted R-Squared Results                                                  
+AdjR2    AICc   JB K(BP)  VIF   SA   Model                                                                                                  
+ 0.02 2726.26 0.00  0.23 1.02 0.00  +KINGCOUNTY_CENSUSBLOCKS.POP2010  -KINGCOUNTY_CENSUSBLOCKS.POPDENS  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**
+ 0.01 2727.44 0.00  0.27 1.45 0.00  -KINGCOUNTY_CENSUSBLOCKS.POPDENS*  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**  -INCOME_TABLE3.CSV.INCOME      
+ 0.01 2728.38 0.00  0.21 1.35 0.00  +KINGCOUNTY_CENSUSBLOCKS.POP2010*  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**  -INCOME_TABLE3.CSV.INCOME      
+       Passing Models       
+AdjR2 AICc JB K(BP) VIF SA   Model
+******************************************************************************
+Choose 4 of 4 Summary
+                                                                Highest Adjusted R-Squared Results                                                                
+AdjR2    AICc   JB K(BP)  VIF   SA   Model                                                                                                                              
+ 0.02 2726.79 0.00  0.22 1.45 0.00  +KINGCOUNTY_CENSUSBLOCKS.POP2010  -KINGCOUNTY_CENSUSBLOCKS.POPDENS*  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**  -INCOME_TABLE3.CSV.INCOME
+       Passing Models       
+AdjR2 AICc JB K(BP) VIF SA   Model
+******************************************************************************
+* Exploratory Regression Global Summary (KINGCOUNTY_CENSUSBLOCKS.PARK_AREA) **
+
+              Percentage of Search Criteria Passed             
+                   Search Criterion Cutoff Trials # Passed % Passed
+             Min Adjusted R-Squared > 0.50     15        0     0.00
+            Max Coefficient p-value < 0.05     15        1     6.67
+                      Max VIF Value < 7.50     15       15   100.00
+            Min Jarque-Bera p-value > 0.10     15        0     0.00
+Min Spatial Autocorrelation p-value > 0.10     10        0     0.00
+
+------------------------------------------------------------------------------
+
+                 Summary of Variable Significance                 
+Variable                          % Significant % Negative % Positive
+KINGCOUNTY_CENSUSBLOCKS.PERCWHITE        100.00       0.00     100.00
+KINGCOUNTY_CENSUSBLOCKS.POP2010            0.00       0.00     100.00
+KINGCOUNTY_CENSUSBLOCKS.POPDENS            0.00     100.00       0.00
+INCOME_TABLE3.CSV.INCOME                   0.00      62.50      37.50
+
+------------------------------------------------------------------------------
+
+               Summary of Multicollinearity              
+Variable                           VIF Violations Covariates
+KINGCOUNTY_CENSUSBLOCKS.POP2010   1.01     0      --------  
+KINGCOUNTY_CENSUSBLOCKS.POPDENS   1.10     0      --------  
+KINGCOUNTY_CENSUSBLOCKS.PERCWHITE 1.35     0      --------  
+INCOME_TABLE3.CSV.INCOME          1.45     0      --------  
+
+------------------------------------------------------------------------------
+
+                           Summary of Residual Normality (JB)                           
+      JB    AdjR2        AICc    K(BP)      VIF       SA   Model                              
+0.000000 0.009426 2727.446155 0.145382 1.000000 0.000000  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**
+0.000000 0.006699 2728.534682 0.325500 1.000000 0.000000  -KINGCOUNTY_CENSUSBLOCKS.POPDENS*   
+0.000000 0.002617 2730.158608 0.249906 1.000000 0.000000  +KINGCOUNTY_CENSUSBLOCKS.POP2010    
+
+------------------------------------------------------------------------------
+
+                                                                    Summary of Residual Spatial Autocorrelation (SA)                                                                    
+      SA    AdjR2        AICc       JB    K(BP)      VIF   Model                                                                                                                              
+0.000002 0.018856 2726.786294 0.000000 0.224849 1.453454  +KINGCOUNTY_CENSUSBLOCKS.POP2010  -KINGCOUNTY_CENSUSBLOCKS.POPDENS*  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**  -INCOME_TABLE3.CSV.INCOME
+0.000001 0.014622 2727.440881 0.000000 0.269378 1.445474  -KINGCOUNTY_CENSUSBLOCKS.POPDENS*  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**  -INCOME_TABLE3.CSV.INCOME                                  
+0.000000 0.017561 2726.257766 0.000000 0.229110 1.020149  +KINGCOUNTY_CENSUSBLOCKS.POP2010  -KINGCOUNTY_CENSUSBLOCKS.POPDENS  +KINGCOUNTY_CENSUSBLOCKS.PERCWHITE**                            
+
+------------------------------------------------------------------------------
+
+Table Abbreviations
+AdjR2 Adjusted R-Squared                                     
+AICc  Akaike's Information Criterion                         
+JB    Jarque-Bera p-value                                    
+K(BP) Koenker (BP) Statistic p-value                         
+VIF   Max Variance Inflation Factor                          
+SA    Global Moran's I p-value                               
+Model Variable sign (+/-)                                    
+Model Variable significance (* = 0.10; ** = 0.05; *** = 0.01)
+
+------------------------------------------------------------------------------
