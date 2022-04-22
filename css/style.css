@@ -106,7 +106,7 @@ h2 {
 }
 
 #panel {
-    height: 680px;
+    height: 100%;
     width: 16%;
     padding-top: 10px;
     padding-left: 5px;
@@ -119,7 +119,7 @@ h2 {
 }
  
 #mapid {
-    height: 680px;
+    height: 100%;
     width: 83%;
     display: inline-block;
 }
@@ -131,7 +131,7 @@ h2 {
 }
 
 .emptyDivClass {
-   padding: 90px 30px; // blank div(or blank space) height and width. Depends on you.
+   padding: 85px 30px; // blank div(or blank space) height and width. Depends on you.
    position: absolute; // so that you can place the blank div(or blank space) wherever you want it. Make sure you have a "position: relative;" div. Absolute div must be inside a Relative div.
    top: 0; // Depends on you.
    left: 0; // Depends on you.
