@@ -47,7 +47,7 @@ h2 {
     left: 17%;
     z-index: 1050;
     display: none;
-    width: 40%;
+    width: 60%;
     overflow: hidden;
     outline: 0;
     background-color: rgba(0, 0, 0, 0.3);
@@ -106,7 +106,7 @@ h2 {
 }
 
 #panel {
-    height: 675px;
+    height: 700px;
     width: 16%;
     padding-top: 10px;
     padding-left: 5px;
@@ -119,7 +119,7 @@ h2 {
 }
  
 #mapid {
-    height: 675px;
+    height: 700px;
     width: 83%;
     display: inline-block;
 }
